@@ -5,7 +5,7 @@ class AuthController {
 
     }
     async googleCallbackController(req, res) {
-        
+
     }
 
 }
