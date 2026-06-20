@@ -1,4 +1,4 @@
-const registerValidatorMiddleware = () => {
+const zodValidatorMiddleware = () => {
     return (req, res, next) => {
         try {
             req.body = schema.parse(req.body);
@@ -14,4 +14,4 @@ const registerValidatorMiddleware = () => {
 }
 
 
-module.exports = { registerValidatorMiddleware }
+module.exports = zodValidatorMiddleware
