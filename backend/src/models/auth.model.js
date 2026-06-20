@@ -6,6 +6,9 @@ let authSchema = new mongoose.Schema({
     },
     email: {
         type: String,
+    },
+    picture: {
+        type: String,
     }
 }, { timestamps: true })
 
