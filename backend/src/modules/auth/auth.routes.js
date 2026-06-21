@@ -16,7 +16,7 @@ authRoutes.get('/auth/google/callback',
     authController.googleCallbackController.bind(authController)
 );
 
-authRoutes.get("/me", authMiddleware, authController.meController.bind(authController))
+authRoutes.get("/auth/me", authMiddleware, authController.meController.bind(authController))
 
 
 module.exports = authRoutes
