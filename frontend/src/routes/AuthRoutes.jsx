@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router"
 import AuthLayout from "../Layout/AuthLayout"
 import Login from "../features/auth/ui/pages/Login"
 import ProtectedLayout from "../Layout/ProtectedLayout"
+import Home from "../features/dashboard/ui/pages/Home"
 
 
 let routes = createBrowserRouter([
@@ -18,11 +19,12 @@ let routes = createBrowserRouter([
     {
         path: "/",
         element: <ProtectedLayout />,
-        // children:[
-        //     {
-
-        //     }
-        // ]
+        children: [
+            {
+                index: true,
+                element: <Home />
+            }
+        ]
     }
 ])
 
