@@ -13,7 +13,7 @@ const createApp = () => {
     app.use(cookieParser())
     googleAuthMiddleware(app)
 
-    app.use("/auth", authRoutes)
+    app.use("/", authRoutes)
 
 
     return app

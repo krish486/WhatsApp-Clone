@@ -7,13 +7,13 @@ class AuthController {
     }
     async googleCallbackController(req, res) {
         const { accToken, refToken } = await this.authService.createUser(req.user)
-        accessCookieConfig = {
+        const accessCookieConfig = {
             httpOnly: false,
             secure: false,
             sameSite: "lax",
             maxAge: 60 * 60 * 1000,
         }
-        refreshCookieConfig = {
+        const refreshCookieConfig = {
             httpOnly: true,
             secure: false,
             sameSite: "lax",
@@ -21,9 +21,7 @@ class AuthController {
         }
         res.cookie("access-token", accToken, accessCookieConfig);
         res.cookie("refresh-token", refToken, refreshCookieConfig);
-        return res.status(200).json({
-            success: true
-        })
+        res.redirect(process.env.CALLBACK_URL)
     }
 
 }

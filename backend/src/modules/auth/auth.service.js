@@ -1,3 +1,4 @@
+const logger = require("../../config/logger")
 const UserRepo = require("../../repository/repository")
 const jwt = require("jsonwebtoken")
 
@@ -7,12 +8,12 @@ class AuthService {
     }
 
     async createUser(user) {
-        let existUser = await this.userRepo.findEmail(user.email[0].value)
+        let existUser = await this.userRepo.findEmail(user.emails[0].value)
         let result = existUser
 
         if (!existUser) {
             result = await this.userRepo.create({
-                name: user.displayname,
+                name: user.displayName,
                 picture: user.photos[0].value,
                 email: user.emails[0].value
             })

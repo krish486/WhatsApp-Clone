@@ -1,5 +1,6 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require("passport");
+const logger = require('../config/logger');
 
 
 const googleAuthMiddleware = (app) => {
@@ -11,8 +12,7 @@ const googleAuthMiddleware = (app) => {
         callbackURL: process.env.CLIENT_CALLBACK
     },
         function (accessToken, refreshToken, profile, cb) {
-
-            return cb(null, user);
+            return cb(null, profile);
         }
     ));
 }
