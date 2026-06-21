@@ -26,6 +26,10 @@ class AuthService {
         }
         let accToken = jwt.sign(tokenData, process.env.ACCESS_SECRET, { expiresIn: "1H" })
         let refToken = jwt.sign(tokenData, process.env.REFRESH_SECRET, { expiresIn: "24H" })
+
+        result.refToken = refToken
+        await result.save()
+
         return { accToken, refToken }
     }
 }

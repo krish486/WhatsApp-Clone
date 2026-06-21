@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const AuthController = require("./auth.controller");
-const passport = require("passport")
+const passport = require("passport");
+const { authMiddleware } = require("../../middleware/authMiddleware");
 
 const authRoutes = Router()
 
@@ -14,5 +15,8 @@ authRoutes.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login', session: false }),
     authController.googleCallbackController.bind(authController)
 );
+
+authRoutes.get("/me", authMiddleware, authController.meController.bind(authController))
+
 
 module.exports = authRoutes

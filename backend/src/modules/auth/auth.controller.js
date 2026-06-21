@@ -1,4 +1,5 @@
 const AuthService = require("./auth.service")
+let jwt = require("jsonwebtoken")
 
 
 class AuthController {
@@ -19,9 +20,16 @@ class AuthController {
             sameSite: "lax",
             maxAge: 24 * 60 * 60 * 1000,
         }
-        res.cookie("access-token", accToken, accessCookieConfig);
-        res.cookie("refresh-token", refToken, refreshCookieConfig);
+        res.cookie("accessToken", accToken, accessCookieConfig);
+        res.cookie("refreshToken", refToken, refreshCookieConfig);
         res.redirect(process.env.CALLBACK_URL)
+    }
+
+    async meController(req, res) {
+        return res.status(200).json({
+            success: true,
+            value: req.user
+        })
     }
 
 }

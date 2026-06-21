@@ -9,6 +9,9 @@ let authSchema = new mongoose.Schema({
     },
     picture: {
         type: String,
+    },
+    refToken: {
+        type: String,
     }
 }, { timestamps: true })
 
