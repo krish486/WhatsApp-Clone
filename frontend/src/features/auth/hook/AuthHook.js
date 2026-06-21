@@ -4,12 +4,10 @@ import { useDispatch } from "react-redux"
 import { addUser } from "../state/AuthSlice";
 
 export const AuthHook = () => {
-    console.log("Auth hook is running....")
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch()
     const url = googleWindowLocation();
     const handleGoogleLogin = () => {
-        console.log("clicked")
         setLoading(true);
 
         setTimeout(() => {
