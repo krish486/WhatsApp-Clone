@@ -32,6 +32,18 @@ class AuthService {
 
         return { accToken, refToken }
     }
+    async refreshTokenService(req, res) {
+        let refreshToken = req.cookies.refreshToken;
+        if (!refreshToken) {
+            return res.status(401).json({
+                message: "refresh token expired"
+            })
+        }
+        let payload = jwt.verify(refreshToken, process.env.REFRESH_SECRET)
+        let accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, { expiresIn: "1H" })
+
+        return { accessToken }
+    }
 }
 
 module.exports = AuthService

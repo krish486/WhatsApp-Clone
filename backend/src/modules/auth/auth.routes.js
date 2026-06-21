@@ -18,5 +18,6 @@ authRoutes.get('/auth/google/callback',
 
 authRoutes.get("/auth/me", authMiddleware, authController.meController.bind(authController))
 
+authRoutes.get("/auth/refreshToken", authController.refreshTokenController.bind(authController))
 
 module.exports = authRoutes
