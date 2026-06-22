@@ -13,11 +13,6 @@ export const AuthHook = () => {
         setTimeout(() => {
             window.location.href = url;
         }, 500);
-    };
-    const sendData = async () => {
-        let data = await getMeApi() || null
-        dispatch(addUser(data))
     }
-    sendData()
     return { handleGoogleLogin, loading }
 }

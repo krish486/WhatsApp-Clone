@@ -40,6 +40,9 @@ class AuthService {
             })
         }
         let payload = jwt.verify(refreshToken, process.env.REFRESH_SECRET)
+        delete payload.exp;
+        delete payload.iat;
+
         let accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, { expiresIn: "1H" })
 
         return { accessToken }

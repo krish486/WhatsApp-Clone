@@ -32,17 +32,26 @@ class AuthController {
         })
     }
     async refreshTokenController(req, res) {
-        const { accessToken } = await this.authService.refreshTokenService(req, res);
-        const accessCookieConfig = {
-            httpOnly: false,
-            secure: false,
-            sameSite: "lax",
-            maxAge: 60 * 60 * 1000,
+        try {
+            const { accessToken } = await this.authService.refreshTokenService(req, res);
+            const accessCookieConfig = {
+                httpOnly: false,
+                secure: false,
+                sameSite: "lax",
+                maxAge: 60 * 60 * 1000,
+            }
+            res.cookie("accessToken", accessToken, accessCookieConfig);
+            return res.status(200).json({
+                success: true
+            })
         }
-        res.cookie("accessToken", accessToken, accessCookieConfig);
-        return res.status(200).json({
-            success: true
-        })
+        catch (err) {
+            return res.status(500).json({
+                success: false,
+                message: err.message,
+            })
+        }
+
     }
 
 }

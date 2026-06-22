@@ -1,28 +1,32 @@
-import axios from "axios"
+import axios from "axios";
 
 export const apiInstance = axios.create({
-    baseURL: "http://localhost:3000" || "https://whatsapp-clone-ipnq.onrender.com",
+    baseURL: "http://localhost:3000",
     withCredentials: true
-})
+});
 
+apiInstance.interceptors.response.use(
+    (response) => response,
 
-
-apiInstance.interceptors.response.use((response) => response,
     async (error) => {
+
         const originalReq = error.config;
+
         if (
             error.response?.status === 401 &&
-            !originalReq._retry
+            !originalReq._retry &&
+            !originalReq.url.includes("/auth/refreshToken")
         ) {
+
             originalReq._retry = true;
+
             try {
 
-                await api.post("/auth/refreshToken");
+                await axios.get("http://localhost:3000/auth/refreshToken", { withCredentials: true });
 
-                return api(originalRequest);
+                return apiInstance(originalReq);
 
-            }
-            catch (err) {
+            } catch (err) {
 
                 console.log("Refresh Token Expired");
 
@@ -31,6 +35,7 @@ apiInstance.interceptors.response.use((response) => response,
                 return Promise.reject(err);
             }
         }
+
         return Promise.reject(error);
     }
-)
+);
