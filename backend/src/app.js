@@ -4,6 +4,7 @@ const authRoutes = require("./modules/auth/auth.routes")
 const googleAuthMiddleware = require("./middleware/googleOauthMiddleware")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
+const userRoutes = require("./modules/user/user.routes")
 
 
 const createApp = () => {
@@ -19,7 +20,7 @@ const createApp = () => {
     }))
 
     app.use("/", authRoutes)
-
+    app.use("/user", userRoutes)
 
     return app
 }
