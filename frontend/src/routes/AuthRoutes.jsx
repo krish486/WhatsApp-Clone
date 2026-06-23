@@ -2,7 +2,9 @@ import { createBrowserRouter } from "react-router"
 import AuthLayout from "../Layout/AuthLayout"
 import Login from "../features/auth/ui/pages/Login"
 import ProtectedLayout from "../Layout/ProtectedLayout"
-import Home from "../features/dashboard/ui/pages/Home"
+import ChatsPage from "../features/dashboard/ui/pages/ChatsPage"
+import FriendListPage from "../features/dashboard/ui/pages/FriendListPage"
+import ProfilePage from "../features/dashboard/ui/pages/ProfilePage"
 
 
 let routes = createBrowserRouter([
@@ -22,7 +24,15 @@ let routes = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Home />
+                element: <ChatsPage />
+            },
+            {
+                path: "/friend-list",
+                element: <FriendListPage />
+            },
+            {
+                path: "/profile",
+                element: <ProfilePage />
             }
         ]
     }

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, Outlet } from 'react-router'
 import { getMeApi } from '../features/auth/api/authApi'
 import { addUser } from '../features/auth/state/AuthSlice'
+import SideBar from '../features/dashboard/ui/components/SideBar'
 
 const ProtectedLayout = () => {
     const { isLoading, isAuth } = useSelector((store) => store.auth)
@@ -42,8 +43,14 @@ const ProtectedLayout = () => {
         return <Navigate to={"/login"} />
     }
     return (
-        <Outlet />
-    )
+        <div className="min-h-screen bg-gray-100">
+            <SideBar />
+
+            <main className="md:ml-64 pb-20 md:pb-0">
+                <Outlet />
+            </main>
+        </div>
+    );
 }
 
 export default ProtectedLayout
