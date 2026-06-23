@@ -32,6 +32,21 @@ class UserService {
             })
         }
     }
+    async friendSearchService(friendMail) {
+        let existUser = await this.userRepo.userFindEmail(friendMail)
+        if (!existUser) {
+            return res.status(404).json({
+                success: false,
+                message: "user not found"
+            })
+        }
+        const friend = {
+            name: existUser.name,
+            email: existUser.email,
+            picture: existUser.picture
+        }
+        return friend
+    }
 }
 
 

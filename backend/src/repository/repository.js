@@ -1,4 +1,5 @@
 const authModel = require("../models/auth.model");
+const userProfileModel = require("../models/user/profile.model");
 
 
 class UserRepo {
@@ -8,6 +9,10 @@ class UserRepo {
     }
     async findEmail(email) {
         await authModel.findOne({ email }).lean()
+    }
+    async userFindEmail(email) {
+        let user = await userProfileModel.findOne({ email }).lean()
+        return user
     }
 }
 

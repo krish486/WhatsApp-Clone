@@ -11,6 +11,21 @@ class UserController {
             success: true
         })
     }
+    async friendSearchController(req, res) {
+        try {
+            const { friend } = req.body;
+            const buddy = await this.authService.friendSearchService(friend);
+            return res.status(200).json({
+                success: true,
+                buddy
+            })
+        } catch (error) {
+            return res.status(500).json({
+                success: true,
+                message: error.message
+            })
+        }
+    }
 }
 
 module.exports = UserController
