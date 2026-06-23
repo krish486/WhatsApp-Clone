@@ -5,6 +5,6 @@ const userRoutes = Router()
 
 const userController = new UserController();
 
-userRoutes.get("/:id/friends",)
+userRoutes.post("/:senderId/friend/request", userController.friendRequestController.bind(friendRequestController))
 
 module.exports = userRoutes
