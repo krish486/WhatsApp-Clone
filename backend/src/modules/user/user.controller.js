@@ -11,7 +11,8 @@ class UserController {
             const { email, status } = req.body
             let request = await this.authService.friendRequestService(_id, email, status);
             return res.status(200).json({
-                success: true
+                success: true,
+                status
             })
         }
         catch (error) {
@@ -24,7 +25,8 @@ class UserController {
     async friendSearchController(req, res) {
         try {
             const { friend } = req.body;
-            const buddy = await this.authService.friendSearchService(friend);
+            const { _id } = req.user;
+            const buddy = await this.authService.friendSearchService(friend, _id);
             if (!buddy) {
                 return res.status(404).json({
                     success: false,

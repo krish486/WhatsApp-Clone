@@ -32,7 +32,6 @@ export const friendSearchingHook = () => {
     const searchNone = () => {
         dispatch(noSearch())
     }
-
     return { handleSearch, searchEmail, searchResult, isSearching, notFound, setEmail, searchNone }
 
 }

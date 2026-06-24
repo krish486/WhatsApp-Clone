@@ -17,10 +17,10 @@ class UserService {
         })
         if (existRequest && existRequest.status === "pending") {
             let updatedRequest = await friendRequestCollectionModel.findByIdAndUpdate(existRequest._id, { status: status }, { new: true })
-            return updateRequest
+            return updatedRequest
         }
         const newRequest = await friendRequestCollectionModel.create({
-            _id,
+            senderId: _id,
             receiverId: id,
             status: "pending",
         })
@@ -28,17 +28,36 @@ class UserService {
         return newRequest;
 
     }
-    async friendSearchService(friendMail, res) {
+    async friendSearchService(friendMail, senderId) {
         let existUser = await this.userRepo.userFindEmail(friendMail)
         if (!existUser) {
             return null
         }
-        const friend = {
+        const receiverId = existUser._id
+
+        const existRequest = await friendRequestCollectionModel.findOne({
+            $or: [
+                { senderId: senderId, receiverId: receiverId }
+                ,
+                { senderId: receiverId, receiverId: senderId }
+            ]
+        })
+        if (!existRequest) {
+            const friend = {
+                name: existUser.name,
+                email: existUser.email,
+                picture: existUser.picture
+            }
+            return friend
+        }
+        const visitedFriend = {
             name: existUser.name,
             email: existUser.email,
-            picture: existUser.picture
+            picture: existUser.picture,
+            status: existRequest.status
         }
-        return friend
+
+        return visitedFriend
     }
 }
 

@@ -5,7 +5,7 @@ import { friendRequestHook } from "../../hook/friendRequestHook";
 
 const FriendListPage = () => {
     const { handleSearch, searchEmail, searchResult, isSearching, notFound, setEmail, searchNone } = friendSearchingHook()
-    const { handleRequest, reqStatus } = friendRequestHook()
+    const { handlePendingRequest, reqStatus } = friendRequestHook()
     const pendingRequests = Array.from({ length: 3 }, (_, i) => ({
         id: i + 1,
         name: `Request User ${i + 1}`,
@@ -103,8 +103,8 @@ const FriendListPage = () => {
 
                             {/* Button */}
                             <button
-                                onClick={handleRequest}
-                                disabled={reqStatus === "pending"}
+                                onClick={handlePendingRequest}
+                                disabled={searchResult.status === "pending"}
                                 className={`
         px-4
         py-2
@@ -114,13 +114,13 @@ const FriendListPage = () => {
         shrink-0
         font-medium
         cursor-pointer
-        ${reqStatus === "pending"
+        ${searchResult.status === "pending"
                                         ? "bg-yellow-500 cursor-not-allowed"
                                         : "bg-green-500 hover:bg-green-600"
                                     }
     `}
                             >
-                                {reqStatus === "pending" ? "Request Sent" : "Add Friend"}
+                                {searchResult.status === "pending" ? "Request Sent" : "Add Friend"}
                             </button>
 
                         </div>

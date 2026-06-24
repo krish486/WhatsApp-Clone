@@ -7,10 +7,10 @@ export const friendRequestHook = () => {
     const [reqStatus, setReqStatus] = useState(null)
 
     const { searchEmail } = useSelector((store) => store.friendSearching)
-    const handleRequest = async () => {
+    const handlePendingRequest = async () => {
         await friendRequestApi(searchEmail, "pending")
         setReqStatus("pending")
     }
 
-    return { handleRequest, reqStatus }
+    return { handlePendingRequest, reqStatus }
 }
