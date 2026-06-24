@@ -6,10 +6,20 @@ class UserController {
         this.authService = new UserService();
     }
     async friendRequestController(req, res) {
-        await this.authService.friendRequestService(req, res);
-        return res.status(200).json({
-            success: true
-        })
+        try {
+            const { _id } = req.user
+            const { email, status } = req.body
+            let request = await this.authService.friendRequestService(_id, email, status);
+            return res.status(200).json({
+                success: true
+            })
+        }
+        catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            })
+        }
     }
     async friendSearchController(req, res) {
         try {
