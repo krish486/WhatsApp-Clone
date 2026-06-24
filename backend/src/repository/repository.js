@@ -7,7 +7,8 @@ class UserRepo {
         return data
     }
     async findEmail(email) {
-        await authModel.findOne({ email }).lean()
+        const data = await authModel.findOne({ email })
+        return data
     }
     async userFindEmail(email) {
         let user = await authModel.findOne({ email })
