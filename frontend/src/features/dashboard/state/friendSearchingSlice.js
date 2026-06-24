@@ -4,19 +4,28 @@ import { createSlice } from "@reduxjs/toolkit";
 let friendSearchingSlice = createSlice({
     name: "friendSearching",
     initialState: {
+        searchEmail: "",
         searchResult: null,
-        isSearching: true,
+        isSearching: false,
         notFound: false
     },
     reducers: {
+        setSearchEmail: (state, action) => {
+            state.searchEmail = action.payload
+        },
+        startSearching: (state) => {
+            state.isSearching = true
+            state.notFound = false
+        },
         noSearch: (state) => {
             state.searchResult = null
-            state.notFound = true
+            state.notFound = false
             state.isSearching = false
         },
         searchFound: (state, action) => {
             state.searchResult = action.payload
             state.isSearching = false
+            state.notFound = false
         },
         searchNotFound: (state) => {
             state.searchResult = null
@@ -26,6 +35,6 @@ let friendSearchingSlice = createSlice({
     }
 })
 
-export const { noSearch, searchFound, searchNotFound } = friendSearchingSlice.actions
+export const { setSearchEmail, startSearching, noSearch, searchFound, searchNotFound } = friendSearchingSlice.actions
 
 export default friendSearchingSlice.reducer

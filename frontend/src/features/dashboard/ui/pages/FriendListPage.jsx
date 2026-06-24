@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { searchFriend } from "../../api/dashboardApi";
+import { friendSearchingHook } from "../../hook/friendSearchingHook";
 
 const FriendListPage = () => {
+    const { handleSearch, searchEmail, searchResult, isSearching, notFound, setEmail, searchNone } = friendSearchingHook()
+
     const pendingRequests = Array.from({ length: 3 }, (_, i) => ({
         id: i + 1,
         name: `Request User ${i + 1}`,
@@ -14,38 +17,8 @@ const FriendListPage = () => {
         email: `friend${i + 1}@gmail.com`,
         online: i % 2 === 0,
     }));
-    const [searchEmail, setSearchEmail] = useState("");
-    const [searchResult, setSearchResult] = useState(null);
-    const [isSearching, setIsSearching] = useState(false);
-    const [notFound, setNotFound] = useState(false);
 
-    const handleSearch = async () => {
-        if (!searchEmail.trim()) {
-            setSearchResult(null);
-            setNotFound(false);
-            return;
-        }
 
-        try {
-            setIsSearching(true);
-            setNotFound(false);
-
-            const res = await searchFriend(searchEmail);
-            if (res) {
-                setSearchResult(res);
-            } else {
-                setSearchResult(null);
-                setNotFound(true);
-            }
-        } catch (error) {
-            setSearchResult(null);
-            setNotFound(true);
-        } finally {
-            setIsSearching(false);
-        }
-    };
-
-    console.log("ans--->", searchResult)
     return (
         <div className="h-[calc(100vh-80px)] md:h-screen bg-slate-100 p-3 md:p-6">
 
@@ -77,16 +50,15 @@ const FriendListPage = () => {
                     "
                     value={searchEmail}
                     onChange={(e) => {
-                        setSearchEmail(e.target.value);
+                        setEmail(e.target.value);
 
                         if (!e.target.value.trim()) {
-                            setSearchResult(null);
-                            setNotFound(false);
+                            searchNone();
                         }
                     }}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {
-                            handleSearch();
+                            handleSearch(searchEmail);
                         }
                     }}
                 />
