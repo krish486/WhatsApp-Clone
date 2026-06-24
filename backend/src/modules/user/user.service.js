@@ -7,21 +7,21 @@ class UserService {
     }
     async friendRequestService(req, res) {
         try {
-            const { senderId } = req.params;
+            const { _id } = req.user
             const { id, status, createdAt } = req.body;
 
             const existRequest = await friendRequestCollectionModel.findOne({
                 $or: [
-                    { senderId: senderId, receiverId: id }
+                    { senderId: _id, receiverId: id }
                     ,
-                    { senderId: id, receiverId: senderId }
+                    { senderId: id, receiverId: _id }
                 ]
             })
             if (existRequest && existRequest.status === "pending") {
                 return await friendRequestCollectionModel.findByIdAndUpdate(existRequest._id, { status: status }, { new: true })
             }
             const newRequest = await friendRequestCollectionModel.create({
-                senderId,
+                _id,
                 receiverId: id,
                 status: "pending",
                 createdAt
@@ -32,19 +32,18 @@ class UserService {
             })
         }
     }
-    async friendSearchService(friendMail) {
+    async friendSearchService(friendMail, res) {
         let existUser = await this.userRepo.userFindEmail(friendMail)
+        console.log("exist-user-->", existUser)
         if (!existUser) {
-            return res.status(404).json({
-                success: false,
-                message: "user not found"
-            })
+            return null
         }
         const friend = {
             name: existUser.name,
             email: existUser.email,
             picture: existUser.picture
         }
+        console.log("this is check point............")
         return friend
     }
 }

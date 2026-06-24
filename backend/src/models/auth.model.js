@@ -12,7 +12,15 @@ let authSchema = new mongoose.Schema({
     },
     refToken: {
         type: String,
-    }
+    },
+    friendList: [{
+        friendName: {
+            type: String
+        },
+        friendPicture: {
+            type: String
+        }
+    }]
 }, { timestamps: true })
 
 let authModel = mongoose.model("auth", authSchema)

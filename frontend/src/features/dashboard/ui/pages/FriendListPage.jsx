@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { searchFriend } from "../../api/dashboardApi";
 
 const FriendListPage = () => {
     const pendingRequests = Array.from({ length: 3 }, (_, i) => ({

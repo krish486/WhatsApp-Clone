@@ -1,11 +1,12 @@
 const { Router } = require("express")
-const UserController = require("./user.controller")
+const UserController = require("./user.controller");
+const { authMiddleware } = require("../../middleware/authMiddleware");
 
 const userRoutes = Router()
 
 const userController = new UserController();
 
-userRoutes.post("/:senderId/friend/request", userController.friendRequestController.bind(userController))
-userRoutes.post("/:senderId/friend/search",userController.friendSearchController.bind(userController))
+userRoutes.post("/friend/request", authMiddleware, userController.friendRequestController.bind(userController))
+userRoutes.post("/friend/search", authMiddleware, userController.friendSearchController.bind(userController))
 
 module.exports = userRoutes

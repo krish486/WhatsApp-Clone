@@ -13,6 +13,7 @@ const createApp = () => {
     app.use(requestLogger())
 
     app.use(cookieParser())
+    app.use(express.json());
     googleAuthMiddleware(app)
     app.use(cors({
         origin: process.env.CORS_URL,
