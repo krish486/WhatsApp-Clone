@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { searchFriend } from "../../api/dashboardApi";
 import { friendSearchingHook } from "../../hook/friendSearchingHook";
+import { friendRequestHook } from "../../hook/friendRequestHook";
 
 const FriendListPage = () => {
     const { handleSearch, searchEmail, searchResult, isSearching, notFound, setEmail, searchNone } = friendSearchingHook()
-
+    const { handleRequest, reqStatus } = friendRequestHook()
     const pendingRequests = Array.from({ length: 3 }, (_, i) => ({
         id: i + 1,
         name: `Request User ${i + 1}`,
@@ -102,19 +103,24 @@ const FriendListPage = () => {
 
                             {/* Button */}
                             <button
-                                className="
-                    bg-green-500
-                    hover:bg-green-600
-                    text-white
-                    px-4
-                    py-2
-                    rounded-lg
-                    transition
-                    shrink-0
-                    cursor-pointer
-                "
+                                onClick={handleRequest}
+                                disabled={reqStatus === "pending"}
+                                className={`
+        px-4
+        py-2
+        rounded-lg
+        text-white
+        transition
+        shrink-0
+        font-medium
+        cursor-pointer
+        ${reqStatus === "pending"
+                                        ? "bg-yellow-500 cursor-not-allowed"
+                                        : "bg-green-500 hover:bg-green-600"
+                                    }
+    `}
                             >
-                                Add Friend
+                                {reqStatus === "pending" ? "Request Sent" : "Add Friend"}
                             </button>
 
                         </div>
