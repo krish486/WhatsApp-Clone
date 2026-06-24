@@ -11,7 +11,6 @@ class UserRepo {
     }
     async userFindEmail(email) {
         let user = await authModel.findOne({ email })
-        console.log("user---->", user)
         return user
     }
 }

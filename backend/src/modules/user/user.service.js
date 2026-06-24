@@ -34,7 +34,6 @@ class UserService {
     }
     async friendSearchService(friendMail, res) {
         let existUser = await this.userRepo.userFindEmail(friendMail)
-        console.log("exist-user-->", existUser)
         if (!existUser) {
             return null
         }
@@ -43,7 +42,6 @@ class UserService {
             email: existUser.email,
             picture: existUser.picture
         }
-        console.log("this is check point............")
         return friend
     }
 }

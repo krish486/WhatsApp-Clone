@@ -31,9 +31,8 @@ const FriendListPage = () => {
             setNotFound(false);
 
             const res = await searchFriend(searchEmail);
-
-            if (res.data?.user) {
-                setSearchResult(res.data.user);
+            if (res) {
+                setSearchResult(res);
             } else {
                 setSearchResult(null);
                 setNotFound(true);
@@ -46,6 +45,7 @@ const FriendListPage = () => {
         }
     };
 
+    console.log("ans--->", searchResult)
     return (
         <div className="h-[calc(100vh-80px)] md:h-screen bg-slate-100 p-3 md:p-6">
 
@@ -98,28 +98,53 @@ const FriendListPage = () => {
 
                 {searchResult && (
                     <div className="bg-white p-4 rounded-xl shadow-sm mb-4">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <h3 className="font-medium">
-                                    {searchResult.name}
-                                </h3>
+                        <div className="flex items-center justify-between gap-4">
 
-                                <p className="text-sm text-gray-500">
-                                    {searchResult.email}
-                                </p>
+                            {/* User Info */}
+                            <div className="flex items-center gap-3 min-w-0">
+
+                                <img
+                                    src={searchResult.picture}
+                                    alt={searchResult.name}
+                                    className="
+                        w-14
+                        h-14
+                        rounded-full
+                        object-cover
+                        border
+                        shrink-0
+                    "
+                                />
+
+                                <div className="min-w-0">
+                                    <h3 className="font-semibold text-lg truncate">
+                                        {searchResult.name}
+                                    </h3>
+
+                                    <p className="text-sm text-gray-500 truncate">
+                                        {searchResult.email}
+                                    </p>
+                                </div>
+
                             </div>
 
+                            {/* Button */}
                             <button
                                 className="
                     bg-green-500
+                    hover:bg-green-600
                     text-white
                     px-4
                     py-2
                     rounded-lg
+                    transition
+                    shrink-0
+                    cursor-pointer
                 "
                             >
                                 Add Friend
                             </button>
+
                         </div>
                     </div>
                 )}
