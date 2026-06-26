@@ -15,6 +15,9 @@ class UserService {
                 { senderId: id, receiverId: _id }
             ]
         })
+        if (existRequest && (existRequest.status === "accepted" || existRequest.status === "rejected")) {
+            return null
+        }
         if (existRequest && existRequest.status === "pending") {
             let updatedRequest = await friendRequestCollectionModel.findByIdAndUpdate(existRequest._id, { status: status }, { new: true })
             return updatedRequest

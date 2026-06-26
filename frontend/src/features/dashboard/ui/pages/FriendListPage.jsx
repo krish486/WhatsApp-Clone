@@ -3,6 +3,7 @@ import { searchFriend } from "../../api/dashboardApi";
 import { friendSearchingHook } from "../../hook/friendSearchingHook";
 import { friendRequestHook } from "../../hook/friendRequestHook";
 import { usePendingRequest } from "../../hook/pendingRequestHook";
+import { acceptRejectHook } from "../../hook/acceptRejectHook";
 
 const FriendListPage = () => {
     const { handleSearch, searchEmail, searchResult, isSearching, notFound, setEmail, searchNone } = friendSearchingHook()
@@ -15,6 +16,10 @@ const FriendListPage = () => {
         loading,
         refetch
     } = usePendingRequest();
+
+    const { handleAcceptBtn, handleRejectBtn } = acceptRejectHook()
+
+
     const friends = Array.from({ length: 3 }, (_, i) => ({
         id: i + 1,
         name: `Friend ${i + 1}`,
@@ -257,6 +262,10 @@ const FriendListPage = () => {
                                                 <div className="flex gap-3 mt-4">
 
                                                     <button
+                                                        onClick={async () => {
+                                                            await handleAcceptBtn(request.email)
+                                                            refetch()
+                                                        }}
                                                         className="
                                         flex-1
                                         py-2
@@ -265,12 +274,17 @@ const FriendListPage = () => {
                                         hover:bg-green-600
                                         text-white
                                         transition
+                                        cursor-pointer
                                     "
                                                     >
                                                         Accept
                                                     </button>
 
                                                     <button
+                                                        onClick={async () => {
+                                                            await handleRejectBtn(request.email)
+                                                            refetch()
+                                                        }}
                                                         className="
                                         flex-1
                                         py-2
@@ -280,6 +294,7 @@ const FriendListPage = () => {
                                         text-red-600
                                         hover:bg-red-50
                                         transition
+                                        cursor-pointer
                                     "
                                                     >
                                                         Reject
