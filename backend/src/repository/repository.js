@@ -10,6 +10,15 @@ class UserRepo {
         const data = await authModel.findOne({ email })
         return data
     }
+    async findById(id) {
+        const res = await authModel.findById(id)
+        const data = {
+            name: res.name,
+            email: res.email,
+            picture: res.picture
+        }
+        return data
+    }
     async userFindEmail(email) {
         let user = await authModel.findOne({ email })
         return user

@@ -44,6 +44,28 @@ class UserController {
             })
         }
     }
+
+    async getPendingRequestController(req, res) {
+        try {
+            const { id } = req.user
+            const reqList = await this.authService.getPendingRequestService(id)
+            if (!reqList) {
+                return res.status(200).json({
+                    success: true,
+                    message: "no request"
+                })
+            }
+            return res.status(200).json({
+                success: true,
+                reqList
+            })
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            })
+        }
+    }
 }
 
 module.exports = UserController

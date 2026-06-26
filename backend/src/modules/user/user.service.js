@@ -59,6 +59,18 @@ class UserService {
 
         return visitedFriend
     }
+    async getPendingRequestService(receiverId) {
+        const requestList = await friendRequestCollectionModel.find({ receiverId })
+        if (!requestList) {
+            return null
+        }
+        const reqUserList = requestList.map((elem) => {
+            const id = elem.senderId
+            const user = await this.userRepo.findById(id)
+            return user
+        })
+        return reqUserList
+    }
 }
 
 
