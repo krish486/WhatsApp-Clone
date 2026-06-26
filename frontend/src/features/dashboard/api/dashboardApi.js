@@ -18,3 +18,12 @@ export const friendRequestApi = async (email, status) => {
         console.log("error in friend request api->", error.message)
     }
 }
+
+export const pendingRequestApi = async () => {
+    try {
+        let res = await apiInstance.get("user/friend/get-pending-request")
+        return res.data.reqList
+    } catch (error) {
+        console.log("error in pending Request api", error.message)
+    }
+}
