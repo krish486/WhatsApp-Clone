@@ -31,10 +31,15 @@ let friendSearchingSlice = createSlice({
             state.searchResult = null
             state.isSearching = false
             state.notFound = true
+        },
+        updateRequestStatus: (state, action) => {
+            if (state.searchResult) {
+                state.searchResult.status = action.payload
+            }
         }
     }
 })
 
-export const { setSearchEmail, startSearching, noSearch, searchFound, searchNotFound } = friendSearchingSlice.actions
+export const { updateRequestStatus, setSearchEmail, startSearching, noSearch, searchFound, searchNotFound } = friendSearchingSlice.actions
 
 export default friendSearchingSlice.reducer

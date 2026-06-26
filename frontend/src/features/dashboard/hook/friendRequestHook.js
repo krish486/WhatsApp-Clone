@@ -1,16 +1,16 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { friendRequestApi } from "../api/dashboardApi"
-import { useState } from "react"
+import { updateRequestStatus } from "../state/friendSearchingSlice"
 
 export const friendRequestHook = () => {
+    const dispatch = useDispatch()
 
-    const [reqStatus, setReqStatus] = useState(null)
 
     const { searchEmail } = useSelector((store) => store.friendSearching)
     const handlePendingRequest = async () => {
         await friendRequestApi(searchEmail, "pending")
-        setReqStatus("pending")
+        dispatch(updateRequestStatus("pending"))
     }
 
-    return { handlePendingRequest, reqStatus }
+    return { handlePendingRequest }
 }
