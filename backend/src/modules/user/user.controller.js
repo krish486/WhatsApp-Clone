@@ -90,6 +90,23 @@ class UserController {
             })
         }
     }
+
+    async deleteRejectedRequestController(req, res) {
+        try {
+            const { id } = req.user
+            await this.authService.deleteRejectedService(id);
+
+            return res.status(200).json({
+                success: true
+            })
+
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            })
+        }
+    }
 }
 
 module.exports = UserController

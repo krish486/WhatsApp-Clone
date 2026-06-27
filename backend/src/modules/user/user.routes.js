@@ -14,4 +14,6 @@ userRoutes.get("/friend/get-pending-request", authMiddleware, userController.get
 
 userRoutes.get("/friend/get-accepted-request", authMiddleware, userController.getAcceptedRequestController.bind(userController))
 
+userRoutes.delete("/friend/get-rejected-request", authMiddleware, userController.deleteRejectedRequestController.bind(userController))
+
 module.exports = userRoutes

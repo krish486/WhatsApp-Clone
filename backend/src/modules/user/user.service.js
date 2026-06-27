@@ -91,6 +91,10 @@ class UserService {
         )
         return reqUserList
     }
+
+    async deleteRejectedService(receiverId) {
+        await friendRequestCollectionModel.findOneAndDelete({ receiverId, status: "rejected" })
+    }
 }
 
 
