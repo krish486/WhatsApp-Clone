@@ -27,3 +27,12 @@ export const pendingRequestApi = async () => {
         console.log("error in pending Request api", error.message)
     }
 }
+
+export const acceptedRequestApi = async () => {
+    try {
+        let res = await apiInstance.get("user/friend/get-accepted-request")
+        return res.data.reqList
+    } catch (error) {
+        console.log("error in accepted request api", error.meesage)
+    }
+}

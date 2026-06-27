@@ -4,6 +4,7 @@ import { friendSearchingHook } from "../../hook/friendSearchingHook";
 import { friendRequestHook } from "../../hook/friendRequestHook";
 import { usePendingRequest } from "../../hook/pendingRequestHook";
 import { acceptRejectHook } from "../../hook/acceptRejectHook";
+import { useAcceptedRequest } from "../../hook/acceptedRequestHook";
 
 const FriendListPage = () => {
     const { handleSearch, searchEmail, searchResult, isSearching, notFound, setEmail, searchNone } = friendSearchingHook()
@@ -19,13 +20,8 @@ const FriendListPage = () => {
 
     const { handleAcceptBtn, handleRejectBtn } = acceptRejectHook()
 
-
-    const friends = Array.from({ length: 3 }, (_, i) => ({
-        id: i + 1,
-        name: `Friend ${i + 1}`,
-        email: `friend${i + 1}@gmail.com`,
-        online: i % 2 === 0,
-    }));
+    const acceptedRequest = useAcceptedRequest();
+    const friends = acceptedRequest.acceptedRequest;
 
 
     return (
@@ -156,31 +152,29 @@ const FriendListPage = () => {
                         flex-col
                     "
                 >
-                    <div className="p-4 border-b">
-                        <h2 className="font-semibold text-lg">
-                            Pending Requests
-                        </h2>
-                    </div>
 
                     <div className="flex flex-col h-full">
 
                         {/* Header */}
-                        <div className="flex items-center justify-between border-b px-5 py-4 bg-white sticky top-0 z-10">
+                        <div className="flex items-center justify-between border-b px-3  bg-white sticky top-0 z-10">
 
-                            <div>
-                                <h2 className="text-xl font-bold">
-                                    Friend Requests
+                            <div
+                                className="
+                                w-full
+                            p-4
+                            flex
+                            items-center
+                            justify-between
+                        "
+                            >
+                                <h2 className="font-semibold text-lg">
+                                    Pending Request - {pendingRequests.length}
                                 </h2>
 
-                                <p className="text-sm text-gray-500">
-                                    {pendingRequests.length} Pending
-                                </p>
-                            </div>
-
-                            <button
-                                onClick={refetch}
-                                disabled={loading}
-                                className="
+                                <button
+                                    onClick={refetch}
+                                    disabled={loading}
+                                    className="
                 px-4
                 py-2
                 rounded-lg
@@ -190,9 +184,11 @@ const FriendListPage = () => {
                 disabled:opacity-60
                 transition
             "
-                            >
-                                {loading ? "Refreshing..." : "Refresh"}
-                            </button>
+                                >
+                                    {loading ? "Refreshing..." : "Refresh"}
+                                </button>
+                            </div>
+
 
                         </div>
 
@@ -345,87 +341,115 @@ const FriendListPage = () => {
                         <span className="text-sm text-gray-500">
                             {friends.length} Friends
                         </span>
+                        <button
+                            onClick={acceptedRequest.refetch}
+                            disabled={acceptedRequest.loading}
+                            className="
+                px-4
+                py-2
+                rounded-lg
+                bg-slate-800
+                text-white
+                hover:bg-slate-700
+                disabled:opacity-60
+                transition
+            "
+                        >
+                            {acceptedRequest.loading ? "Refreshing..." : "Refresh"}
+                        </button>
                     </div>
 
                     <div className="flex-1 overflow-y-auto">
 
-                        {friends.map((friend) => (
-                            <div
-                                key={friend.id}
-                                className="
-                                    flex
-                                    items-center
-                                    justify-between
-                                    p-4
-                                    border-b
-                                    hover:bg-slate-50
-                                    transition
-                                "
-                            >
-                                <div className="flex items-center gap-3 min-w-0">
+                        {friends.length === 0 ? (
 
-                                    <div className="relative shrink-0">
+                            <div className="h-full flex items-center justify-center p-8">
 
-                                        <div
-                                            className="
-                                                h-14
-                                                w-14
-                                                rounded-full
-                                                bg-slate-300
-                                            "
-                                        />
+                                <div className="text-center max-w-sm">
 
-                                        {friend.online && (
-                                            <div
-                                                className="
-                                                    absolute
-                                                    bottom-0
-                                                    right-0
-                                                    h-4
-                                                    w-4
-                                                    rounded-full
-                                                    bg-green-500
-                                                    border-2
-                                                    border-white
-                                                "
-                                            />
-                                        )}
-
+                                    <div className="w-32 h-32 mx-auto rounded-full bg-slate-100 flex items-center justify-center text-6xl shadow-inner">
+                                        👥
                                     </div>
 
-                                    <div className="min-w-0">
+                                    <h2 className="mt-6 text-2xl font-bold text-slate-800">
+                                        No Friends Yet
+                                    </h2>
 
-                                        <h3 className="font-medium truncate">
-                                            {friend.name}
-                                        </h3>
+                                    <p className="mt-2 text-slate-500 leading-relaxed">
+                                        You haven't connected with anyone yet.
+                                        Accept a friend request to start chatting.
+                                    </p>
 
-                                        <p className="text-sm text-gray-500 truncate">
-                                            {friend.email}
-                                        </p>
-
-                                    </div>
+                                    <button
+                                        onClick={acceptedRequest.refetch}
+                                        className="mt-6 px-6 py-2 rounded-xl bg-slate-800 text-white hover:bg-slate-700 transition"
+                                    >
+                                        🔄 Refresh
+                                    </button>
 
                                 </div>
 
-                                <button
-                                    className="
-                                        ml-4
-                                        shrink-0
-                                        rounded-xl
-                                        bg-green-500
-                                        px-4
-                                        py-2
-                                        text-white
-                                        hover:bg-green-600
-                                        transition
-                                        cursor-pointer
-                                    "
-                                >
-                                    Chat
-                                </button>
-
                             </div>
-                        ))}
+
+                        ) : (
+
+                            friends.map((friend) => (
+
+                                <div
+                                    key={friend.id}
+                                    className="
+                    flex
+                    items-center
+                    justify-between
+                    p-4
+                    border-b
+                    hover:bg-slate-50
+                    transition
+                "
+                                >
+                                    <div className="flex items-center gap-3 min-w-0">
+
+                                        <img
+                                            src={friend.picture}
+                                            alt={friend.name}
+                                            className="h-14 w-14 rounded-full object-cover"
+                                        />
+
+                                        <div className="min-w-0">
+
+                                            <h3 className="font-medium truncate">
+                                                {friend.name}
+                                            </h3>
+
+                                            <p className="text-sm text-gray-500 truncate">
+                                                {friend.email}
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                    <button
+                                        className="
+                        ml-4
+                        shrink-0
+                        rounded-xl
+                        bg-green-500
+                        px-4
+                        py-2
+                        text-white
+                        hover:bg-green-600
+                        transition
+                    "
+                                    >
+                                        Chat
+                                    </button>
+
+                                </div>
+
+                            ))
+
+                        )}
 
                     </div>
 
