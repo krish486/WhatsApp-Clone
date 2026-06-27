@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { searchFriend } from "../../api/dashboardApi";
-import { friendSearchingHook } from "../../hook/friendSearchingHook";
-import { friendRequestHook } from "../../hook/friendRequestHook";
-import { usePendingRequest } from "../../hook/pendingRequestHook";
-import { acceptRejectHook } from "../../hook/acceptRejectHook";
-import { useAcceptedRequest } from "../../hook/acceptedRequestHook";
+import { friendSearchingHook } from "../../hook/FriendRequestHooks/friendSearchingHook";
+import { friendRequestHook } from "../../hook/FriendRequestHooks/friendRequestHook";
+import { usePendingRequest } from "../../hook/FriendRequestHooks/pendingRequestHook";
+import { acceptRejectHook } from "../../hook/FriendRequestHooks/acceptRejectHook";
+import { useAcceptedRequest } from "../../hook/FriendRequestHooks/acceptedRequestHook";
 
 const FriendListPage = () => {
     const { handleSearch, searchEmail, searchResult, isSearching, notFound, setEmail, searchNone } = friendSearchingHook()

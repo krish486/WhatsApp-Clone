@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector, useStore } from "react-redux"
-import { noSearch, searchFound, searchNotFound, setSearchEmail, startSearching } from "../state/friendSearchingSlice";
-import { searchFriend } from "../api/dashboardApi";
+import { noSearch, searchFound, searchNotFound, setSearchEmail, startSearching } from "../../state/friendSearchingSlice";
+import { searchFriend } from "../../api/dashboardApi";
 
 
 export const friendSearchingHook = () => {

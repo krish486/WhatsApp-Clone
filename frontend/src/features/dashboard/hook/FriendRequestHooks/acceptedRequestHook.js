@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { acceptedRequestApi } from "../api/dashboardApi"
+import { acceptedRequestApi } from "../../api/dashboardApi"
 import { useEffect } from "react"
 
 export const useAcceptedRequest = () => {

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
-import { friendRequestApi } from "../api/dashboardApi"
-import { updateRequestStatus } from "../state/friendSearchingSlice"
+import { friendRequestApi } from "../../api/dashboardApi"
+import { updateRequestStatus } from "../../state/friendSearchingSlice"
 
 export const friendRequestHook = () => {
     const dispatch = useDispatch()

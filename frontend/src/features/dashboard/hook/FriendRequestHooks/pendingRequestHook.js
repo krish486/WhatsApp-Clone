@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { pendingRequestApi } from "../api/dashboardApi";
+import { pendingRequestApi } from "../../api/dashboardApi";
 
 export const usePendingRequest = () => {
 

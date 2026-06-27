@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
-import { friendRequestApi } from "../api/dashboardApi"
-import { updateRequestStatus } from "../state/friendSearchingSlice"
+import { friendRequestApi } from "../../api/dashboardApi"
+import { updateRequestStatus } from "../../state/friendSearchingSlice"
 
 export const acceptRejectHook = () => {
     const dispatch = useDispatch()
