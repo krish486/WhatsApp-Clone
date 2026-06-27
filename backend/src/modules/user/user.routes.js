@@ -7,7 +7,11 @@ const userRoutes = Router()
 const userController = new UserController();
 
 userRoutes.post("/friend/request", authMiddleware, userController.friendRequestController.bind(userController))
+
 userRoutes.post("/friend/search", authMiddleware, userController.friendSearchController.bind(userController))
+
 userRoutes.get("/friend/get-pending-request", authMiddleware, userController.getPendingRequestController.bind(userController))
+
+userRoutes.get("/friend/get-accepted-request", authMiddleware, userController.getAcceptedRequestController.bind(userController))
 
 module.exports = userRoutes

@@ -76,6 +76,21 @@ class UserService {
         )
         return reqUserList
     }
+
+    async getAcceptedRequestService(receiverId) {
+        const requestList = await friendRequestCollectionModel.find({ receiverId, status: "accepted" })
+        if (!requestList) {
+            return null
+        }
+        const reqUserList = await Promise.all(
+            requestList.map(async (elem) => {
+                const id = elem.senderId
+                const user = this.userRepo.findById(id)
+                return await user
+            })
+        )
+        return reqUserList
+    }
 }
 
 
