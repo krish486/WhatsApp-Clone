@@ -36,3 +36,11 @@ export const acceptedRequestApi = async () => {
         console.log("error in accepted request api", error.meesage)
     }
 }
+
+export const rejectedRequestApi = async () => {
+    try {
+        await apiInstance.delete("user/friend/get-rejected-request")
+    } catch (error) {
+        console.log("error in rejected request api", error.meesage)
+    }
+}

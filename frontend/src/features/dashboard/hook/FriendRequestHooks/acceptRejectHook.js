@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { friendRequestApi } from "../../api/dashboardApi"
+import { friendRequestApi, rejectedRequestApi } from "../../api/dashboardApi"
 import { updateRequestStatus } from "../../state/friendSearchingSlice"
 
 export const acceptRejectHook = () => {
@@ -18,6 +18,7 @@ export const acceptRejectHook = () => {
         try {
             let res = await friendRequestApi(email, "rejected")
             dispatch(updateRequestStatus(res))
+            await rejectedRequestApi();
         } catch (error) {
             console.log("error in handleRejectBtn->", error.message)
         }

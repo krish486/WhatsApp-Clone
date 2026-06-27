@@ -108,7 +108,10 @@ const FriendListPage = () => {
                             {/* Button */}
                             <button
                                 onClick={handlePendingRequest}
-                                disabled={searchResult.status === "pending"}
+                                disabled={
+                                    searchResult.status === "pending" ||
+                                    searchResult.status === "accepted"
+                                }
                                 className={`
         px-4
         py-2
@@ -117,14 +120,19 @@ const FriendListPage = () => {
         transition
         shrink-0
         font-medium
-        cursor-pointer
-        ${searchResult.status === "pending"
-                                        ? "bg-yellow-500 cursor-not-allowed"
-                                        : "bg-green-500 hover:bg-green-600"
+        ${searchResult.status === "accepted"
+                                        ? "bg-blue-500 cursor-not-allowed"
+                                        : searchResult.status === "pending"
+                                            ? "bg-yellow-500 cursor-not-allowed"
+                                            : "bg-green-500 hover:bg-green-600 cursor-pointer"
                                     }
     `}
                             >
-                                {searchResult.status === "pending" ? "Request Sent" : "Add Friend"}
+                                {searchResult.status === "accepted"
+                                    ? "Friends"
+                                    : searchResult.status === "pending"
+                                        ? "Request Sent"
+                                        : "Add Friend"}
                             </button>
 
                         </div>
