@@ -190,6 +190,7 @@ const FriendListPage = () => {
                 hover:bg-slate-700
                 disabled:opacity-60
                 transition
+                cursor-pointer
             "
                                 >
                                     {loading ? "Refreshing..." : "Refresh"}

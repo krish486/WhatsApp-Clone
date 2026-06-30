@@ -20,8 +20,8 @@ const FriendList = () => {
         >
             <div
                 className="
-                            p-4
                             border-b
+                            p-4
                             flex
                             items-center
                             justify-between
@@ -46,6 +46,7 @@ const FriendList = () => {
                 hover:bg-slate-700
                 disabled:opacity-60
                 transition
+                cursor-pointer
             "
                 >
                     {acceptedRequest.loading ? "Refreshing..." : "Refresh"}
@@ -84,14 +85,19 @@ const FriendList = () => {
                         <div
                             key={prop}
                             className="
-                    flex
-                    items-center
-                    justify-between
-                    p-4
-                    border-b
-                    hover:bg-slate-50
-                    transition
-                "
+        relative
+        flex
+        items-center
+        justify-between
+        p-4
+        transition
+        after:absolute
+        after:bottom-0
+        after:left-4
+        after:right-4
+        after:h-px
+        after:bg-black
+    "
                         >
                             <div className="flex items-center gap-3 min-w-0">
 
@@ -126,6 +132,7 @@ const FriendList = () => {
                         text-white
                         hover:bg-green-600
                         transition
+                        cursor-pointer
                     "
                             >
                                 Chat
