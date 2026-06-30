@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router";
+import { logOutHook } from "../../hook/log-out/logOutHook";
 
 const navItemClass = ({ isActive }) =>
     `px-4 py-3 rounded-lg transition-all duration-200 cursor-pointer
@@ -16,6 +17,9 @@ const mobileNavClass = ({ isActive }) =>
     }`;
 
 const SideBar = () => {
+
+    const { handleLogout } = logOutHook()
+
     return (
         <>
             {/* Desktop Sidebar */}
@@ -54,6 +58,7 @@ const SideBar = () => {
 
                 <div className="p-6 border-t">
                     <button
+                        onClick={handleLogout}
                         className="
                         w-full cursor-pointer rounded-lg bg-red-500 py-3
                         text-white font-medium transition-all duration-200

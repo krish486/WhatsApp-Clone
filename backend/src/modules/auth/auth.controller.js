@@ -55,8 +55,8 @@ class AuthController {
     }
     async logOutController(req, res) {
         try {
-            const { id } = req.user()
-            await this.authService.logOutService();
+            const { id } = req.user
+            await this.authService.logOutService(id);
 
             const accessCookieConfig = {
                 httpOnly: false,

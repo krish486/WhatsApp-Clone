@@ -33,7 +33,7 @@ export const acceptedRequestApi = async () => {
         let res = await apiInstance.get("user/friend/get-accepted-request")
         return res.data.reqList
     } catch (error) {
-        console.log("error in accepted request api", error.meesage)
+        console.log("error in accepted request api", error.message)
     }
 }
 
@@ -41,15 +41,15 @@ export const rejectedRequestApi = async () => {
     try {
         await apiInstance.delete("user/friend/get-rejected-request")
     } catch (error) {
-        console.log("error in rejected request api", error.meesage)
+        console.log("error in rejected request api", error.message)
     }
 }
 
 
 export const logOutApi = async () => {
     try {
-        await apiInstance.delete("auth/log-out")
+        await apiInstance.get("auth/log-out")
     } catch (error) {
-        console.log("error in rejected request api", error.meesage)
+        console.log("error in rejected request api", error.message)
     }
 }
