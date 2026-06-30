@@ -44,3 +44,12 @@ export const rejectedRequestApi = async () => {
         console.log("error in rejected request api", error.meesage)
     }
 }
+
+
+export const logOutApi = async () => {
+    try {
+        await apiInstance.delete("auth/log-out")
+    } catch (error) {
+        console.log("error in rejected request api", error.meesage)
+    }
+}
