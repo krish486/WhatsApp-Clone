@@ -20,4 +20,6 @@ authRoutes.get("/auth/me", authMiddleware, authController.meController.bind(auth
 
 authRoutes.get("/auth/refreshToken", authController.refreshTokenController.bind(authController))
 
+authRoutes.get("/auth/log-out", authMiddleware, authController.logOutController.bind(authController))
+
 module.exports = authRoutes

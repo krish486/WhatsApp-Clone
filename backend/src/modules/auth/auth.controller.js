@@ -53,6 +53,35 @@ class AuthController {
         }
 
     }
+    async logOutController(req, res) {
+        try {
+            const { id } = req.user()
+            await this.authService.logOutService();
+
+            const accessCookieConfig = {
+                httpOnly: false,
+                secure: false,
+                sameSite: "lax",
+            }
+            const refreshCookieConfig = {
+                httpOnly: true,
+                secure: false,
+                sameSite: "lax",
+            }
+
+            res.clearCookie("refreshToken", refreshCookieConfig)
+            res.clearCookie("accessToken", accessCookieConfig)
+
+            return res.status(204).json({
+                success: true
+            })
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            })
+        }
+    }
 
 }
 

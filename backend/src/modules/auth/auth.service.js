@@ -1,4 +1,5 @@
 const logger = require("../../config/logger")
+const authModel = require("../../models/auth.model")
 const UserRepo = require("../../repository/repository")
 const jwt = require("jsonwebtoken")
 
@@ -46,6 +47,12 @@ class AuthService {
         let accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, { expiresIn: "1H" })
 
         return { accessToken }
+    }
+    async logOutService(id) {
+        const existUser = await authModel.findById(id)
+        existUser.refreshToken = null;
+
+        await existUser.save();
     }
 }
 
