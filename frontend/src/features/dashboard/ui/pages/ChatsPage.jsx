@@ -1,5 +1,6 @@
 import React from "react";
 import FriendList from "../components/FriendList";
+import UserChat from "../components/UserChat";
 
 const ChatsPage = () => {
     return (
@@ -12,9 +13,10 @@ const ChatsPage = () => {
 
             {/* Chat Section */}
             <div className="hidden md:flex flex-1 items-center justify-center bg-gray-50">
-                <h1 className="text-gray-500 text-xl font-medium">
+                {/* <h1 className="text-gray-500 text-xl font-medium">
                     Select a chat to start messaging
-                </h1>
+                </h1> */}
+                <UserChat />
             </div>
 
         </div>
