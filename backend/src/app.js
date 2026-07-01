@@ -5,6 +5,7 @@ const googleAuthMiddleware = require("./middleware/googleOauthMiddleware")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
 const userRoutes = require("./modules/user/user.routes")
+const chatRoutes = require("./modules/chats/chats.routes")
 
 
 const createApp = () => {
@@ -22,6 +23,7 @@ const createApp = () => {
 
     app.use("/", authRoutes)
     app.use("/user", userRoutes)
+    app.use("/chats", chatRoutes)
 
     return app
 }

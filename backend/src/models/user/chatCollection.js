@@ -38,12 +38,5 @@ const chatSchema = new mongoose.Schema(
     }
 );
 
-chatSchema.pre("save", async function () {
-    this.chats.forEach((message) => {
-        if (message.chat) {
-            message.chat = encryptMessage(message.chat);
-        }
-    });
-});
 
 module.exports = mongoose.model("Chat", chatSchema);
