@@ -8,6 +8,6 @@ const chatController = new ChatController();
 
 chatRoutes.post("/storing", authMiddleware, chatController.storingChatsController.bind(chatController))
 
-chatRoutes.get("/watch", authMiddleware)
+chatRoutes.get("/watch/:friendId", authMiddleware, chatController.watchingChatController.bind(chatController))
 
 module.exports = chatRoutes

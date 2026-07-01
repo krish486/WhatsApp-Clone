@@ -1,6 +1,6 @@
 const ChatRepo = require("../../repository/chat.repo");
 const UserRepo = require("../../repository/repository");
-const { encryptMessage } = require("../../utils/chatEncryption");
+const { encryptMessage, decryptMessage } = require("../../utils/chatEncryption");
 
 class ChatService {
     constructor() {
@@ -23,6 +23,25 @@ class ChatService {
             friend._id,
             encryptedChat
         );
+    }
+
+    async watchingChatService(userId, friendId) {
+
+        const conversation = await this.chatRepo.watchChat(
+            userId,
+            friendId
+        );
+
+        if (!conversation) {
+            return [];
+        }
+
+        conversation.chats = conversation.chats.map((msg) => ({
+            ...msg.toObject(),
+            chat: decryptMessage(msg.chat)
+        }));
+
+        return conversation;
     }
 }
 

@@ -15,9 +15,10 @@ const chatSchema = new mongoose.Schema(
         },
         chats: [
             {
-                person: {
-                    type: String,
-                    enum: ["user", "friend"],
+                senderId: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "User",
+                    required: true,
                 },
                 chat: {
                     type: String,

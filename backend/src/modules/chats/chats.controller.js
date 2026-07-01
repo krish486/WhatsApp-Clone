@@ -29,6 +29,31 @@ class ChatController {
             });
         }
     }
+
+    async watchingChatController(req, res) {
+        try {
+
+            const { id } = req.user;
+            const { friendId } = req.params;
+
+            const response = await this.chatService.watchingChatService(
+                id,
+                friendId
+            );
+
+            return res.status(200).json({
+                success: true,
+                data: response
+            });
+
+        } catch (error) {
+
+            return res.status(500).json({
+                message: error.message
+            });
+
+        }
+    }
 }
 
 module.exports = ChatController

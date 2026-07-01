@@ -15,7 +15,7 @@ class ChatRepo {
                 friendId,
                 chats: [
                     {
-                        person: "user",
+                        senderId: userId,
                         chat,
                         seen: false
                     }
@@ -25,13 +25,31 @@ class ChatRepo {
         } else {
 
             conversation.chats.push({
-                person: "user",
+                senderId: userId,
                 chat,
                 seen: false
             });
 
             await conversation.save();
         }
+
+        return conversation;
+    }
+
+    async watchChat(userId, friendId) {
+
+        const conversation = await chatCollection.findOne({
+            $or: [
+                {
+                    userId,
+                    friendId
+                },
+                {
+                    userId: friendId,
+                    friendId: userId
+                }
+            ]
+        });
 
         return conversation;
     }
