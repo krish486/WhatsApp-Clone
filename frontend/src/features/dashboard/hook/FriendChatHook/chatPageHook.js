@@ -1,8 +1,57 @@
-// import { useState } from "react"
+import { useMemo, useState } from "react";
 
+export const chatPageHook = () => {
 
-// export const chatPageHook = () => {
-    
+    const [selectedFriend, setSelectedFriend] = useState(null);
+    // {
+    //   friendId: [messages]
+    // }
+    const [chatCache, setChatCache] = useState({});
+    const [loading, setLoading] = useState(false);
+    const messages = useMemo(() => {
+        if (!selectedFriend) return [];
+        return chatCache[selectedFriend.id] || [];
+    }, [selectedFriend, chatCache]);
 
-//     return { selectFriend, setSelectFriend }
-// }
+    const selectFriend = (friend) => {
+        setSelectedFriend(friend);
+    };
+
+    const setFriendMessages = (friendId, chats) => {
+        setChatCache((prev) => ({
+            ...prev,
+            [friendId]: chats
+        }));
+    };
+
+    const addMessage = (friendId, message) => {
+        setChatCache((prev) => ({
+            ...prev,
+            [friendId]: [
+                ...(prev[friendId] || []),
+                message
+            ]
+        }));
+
+    };
+
+    const clearChat = (friendId) => {
+        setChatCache((prev) => ({
+            ...prev,
+            [friendId]: []
+        }));
+    };
+
+    return {
+        loading,
+        setLoading,
+        selectedFriend,
+        selectFriend,
+        messages,
+        chatCache,
+        setFriendMessages,
+        addMessage,
+        clearChat
+    };
+
+};

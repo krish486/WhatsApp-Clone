@@ -1,12 +1,14 @@
 import React from 'react'
 import { useAcceptedRequest } from '../../hook/FriendRequestHooks/acceptedRequestHook';
+import { chatPageHook } from '../../hook/FriendChatHook/chatPageHook';
 // import { chatPageHook } from '../../hook/FriendChatHook/chatPageHook';
 
-const FriendList = ({ setSelectFriend }) => {
+const FriendList = ({ chat }) => {
 
     const acceptedRequest = useAcceptedRequest();
     const friends = acceptedRequest.acceptedRequest;
 
+    const { selectFriend } = chat
 
     return (
         <section
@@ -125,7 +127,7 @@ const FriendList = ({ setSelectFriend }) => {
 
                             <button
                                 onClick={() => {
-                                    setSelectFriend(friend)
+                                    selectFriend(friend)
                                 }}
                                 className="
                         ml-4

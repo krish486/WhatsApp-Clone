@@ -9,10 +9,14 @@ import {
 } from "lucide-react";
 import RecievedMessage from "./RecievedMessage";
 import SendMessage from "./SendMessage";
+import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
 // import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
 
-const UserChat = ({ selectFriend }) => {
-    if (!selectFriend) {
+const UserChat = ({ chat }) => {
+
+    const { selectedFriend, messages, addMessage } = chat;
+
+    if (!selectedFriend) {
         return (
             <div className="flex h-full w-full items-center justify-center bg-[#efeae2]">
                 <div className="text-center">
@@ -37,14 +41,14 @@ const UserChat = ({ selectFriend }) => {
 
                 <div className="flex items-center gap-3">
                     <img
-                        src={selectFriend.picture}
+                        src={selectedFriend.picture}
                         alt=""
                         className="w-11 h-11 rounded-full object-cover"
                     />
 
                     <div>
                         <h2 className="font-semibold text-gray-800">
-                            {selectFriend.name}
+                            {selectedFriend.name}
                         </h2>
 
                         <p className="text-sm text-green-600">
@@ -68,14 +72,25 @@ const UserChat = ({ selectFriend }) => {
                         "url('https://www.transparenttextures.com/patterns/white-wall-3.png')",
                 }}
             >
-                {/* Received */}
-                <RecievedMessage message={"Hello bro"} time={"10:20 AM"} />
+                {messages.map((msg) => (
 
-                {/* Sent */}
-                <SendMessage message={"Hi Bro 😄"} time={"10:21 AM"} />
+                    msg.senderId === currentUser.id ?
 
+                        <SendMessage
+                            key={msg.id}
+                            message={msg.chat}
+                            time={msg.time}
+                        />
 
-                <RecievedMessage message={"Yeh WhatsApp style UI hai. Bas messages map kar dena backend se."} time={"10:22 AM"} />
+                        :
+
+                        <RecievedMessage
+                            key={msg.id}
+                            message={msg.chat}
+                            time={msg.time}
+                        />
+
+                ))}
 
             </div>
 
