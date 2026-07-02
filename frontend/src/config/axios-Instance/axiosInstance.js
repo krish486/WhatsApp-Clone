@@ -1,7 +1,8 @@
 import axios from "axios";
+import { parentApi } from "../parent-api/parentApi";
 
 export const apiInstance = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: parentApi(),
     withCredentials: true
 });
 
