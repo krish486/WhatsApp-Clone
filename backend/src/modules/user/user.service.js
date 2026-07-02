@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const friendRequestCollectionModel = require("../../models/user/friendRequestCollection.model");
 const UserRepo = require("../../repository/repository")
 
@@ -78,9 +79,34 @@ class UserService {
     }
 
     async getAcceptedRequestService(receiverId) {
-        const requestList = await friendRequestCollectionModel.find({ receiverId, status: "accepted" })
+        const requestList = await friendRequestCollectionModel.find({
+            $or: [{
+                receiverId,
+                status: "accepted"
+            },
+            {
+                senderId: receiverId,
+                status: "accepted"
+            }]
+        })
         if (!requestList) {
             return null
+        }
+        const sender = requestList[0].senderId
+        const receiver = new mongoose.Types.ObjectId(receiverId);
+
+        const isEqual = receiver.equals(sender);
+
+
+        if (isEqual) {
+            const reqUserList = await Promise.all(
+                requestList.map(async (elem) => {
+                    const id = elem.receiverId
+                    const user = this.userRepo.findById(id)
+                    return await user
+                })
+            )
+            return reqUserList
         }
         const reqUserList = await Promise.all(
             requestList.map(async (elem) => {
