@@ -1,6 +1,8 @@
+const ChatService = require("../modules/chats/chats.service");
 const onlineUsers = require("./onlineUsers");
 const events = require("./socketEvents");
 
+const chatService = new ChatService();
 
 module.exports = (io) => {
 
@@ -10,15 +12,35 @@ module.exports = (io) => {
 
         socket.on(events.JOIN, (userId) => {
             onlineUsers.set(userId, socket.id);
-            console.log("----------------------------");
-            console.log("User Joined");
-            console.log("User :", userId);
-            console.log("Socket :", socket.id);
-            console.log("Online :", onlineUsers.size);
-            console.log("----------------------------");
             io.emit(events.USER_ONLINE, {
                 userId
             });
+        })
+
+        socket.on(events.SEND_MESSAGE, async (data) => {
+            try {
+
+                const { senderId, receiverEmail, message } = data
+
+                const savedMessage = await chatService.storingChatsService(senderId, receiverEmail, message)
+                const receiverSocket = onlineUsers.get(savedMessage.friendId.toString());
+
+                if (receiverSocket) {
+
+                    io.to(receiverSocket).emit(
+
+                        events.RECEIVE_MESSAGE,
+
+                        savedMessage
+
+                    );
+
+                }
+
+
+            } catch (error) {
+                console.log("error in event-sendMessage-", error.message)
+            }
         })
 
         socket.on("disconnect", () => {

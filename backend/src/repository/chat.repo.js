@@ -4,10 +4,18 @@ class ChatRepo {
     async storeChat(userId, friendId, chat) {
 
         let conversation = await chatCollection.findOne({
-            userId,
-            friendId
-        });
+            $or: [
+                {
+                    userId,
+                    friendId
+                },
+                {
+                    userId: friendId,
+                    friendId: userId
+                }
+            ]
 
+        });
         if (!conversation) {
 
             conversation = await chatCollection.create({
