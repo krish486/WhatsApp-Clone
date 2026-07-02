@@ -36,22 +36,22 @@ const PARTICLES = Array.from({ length: 22 }, (_, i) => ({
 const AuroraBlobs = () => (
     <div className="absolute inset-0 overflow-hidden">
         <motion.div
-            className="absolute -top-40 -left-40 h-[32rem] w-[32rem] rounded-full bg-emerald-500/30 blur-[120px]"
+            className="absolute -top-40 -left-40 h-128 w-lg rounded-full bg-emerald-500/30 blur-[120px]"
             animate={{ x: [0, 80, -40, 0], y: [0, 60, -30, 0], scale: [1, 1.15, 0.95, 1] }}
             transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-            className="absolute top-1/3 -right-40 h-[36rem] w-[36rem] rounded-full bg-indigo-500/25 blur-[130px]"
+            className="absolute top-1/3 -right-40 h-144 w-xl rounded-full bg-indigo-500/25 blur-[130px]"
             animate={{ x: [0, -60, 40, 0], y: [0, -50, 30, 0], scale: [1, 0.9, 1.2, 1] }}
             transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-            className="absolute bottom-[-10rem] left-1/4 h-[30rem] w-[30rem] rounded-full bg-cyan-400/20 blur-[110px]"
+            className="absolute -bottom-40 left-1/4 h-12030rem] rounded-full bg-cyan-400/20 blur-[110px]"
             animate={{ x: [0, 50, -60, 0], y: [0, -40, 20, 0], scale: [1, 1.1, 0.95, 1] }}
             transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-            className="absolute top-10 left-1/2 h-[24rem] w-[24rem] -translate-x-1/2 rounded-full bg-violet-500/20 blur-[100px]"
+            className="absolute top-10 left-1/2 h-96 w-[24rem] -translate-x-1/2 rounded-full bg-violet-500/20 blur-[100px]"
             animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
             transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -108,7 +108,7 @@ const Vignette = () => (
 
 const GlassSphere = ({ className, size = 90, duration = 9, delay = 0 }) => (
     <motion.div
-        className={`absolute rounded-full border border-white/20 bg-gradient-to-br from-white/20 via-white/5 to-transparent backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.4)] ${className}`}
+        className={`absolute rounded-full border border-white/20 bg-linear-to-br from-white/20 via-white/5 to-transparent backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.4)] ${className}`}
         style={{ width: size, height: size }}
         animate={{ y: [0, -18, 0], x: [0, 8, 0], rotate: [0, 8, 0] }}
         transition={{ duration, delay, repeat: Infinity, ease: "easeInOut" }}
@@ -125,7 +125,7 @@ const GradientCube = ({ className, size = 56, duration = 10, delay = 0 }) => (
         transition={{ duration, delay, repeat: Infinity, ease: "easeInOut" }}
     >
         <motion.div
-            className="h-full w-full rounded-xl bg-gradient-to-br from-emerald-400/70 via-teal-500/50 to-indigo-500/60 shadow-[0_10px_40px_rgba(16,185,129,0.35)]"
+            className="h-full w-full rounded-xl bg-linear-to-br from-emerald-400/70 via-teal-500/50 to-indigo-500/60 shadow-[0_10px_40px_rgba(16,185,129,0.35)]"
             animate={{ rotateX: [0, 360], rotateY: [0, 360] }}
             transition={{ duration: duration * 3, delay, repeat: Infinity, ease: "linear" }}
             style={{ transformStyle: "preserve-3d" }}
@@ -157,11 +157,11 @@ const FloatingChatBubble = ({ className, delay = 0 }) => (
 
 const FloatingCard = ({ className, delay = 0 }) => (
     <motion.div
-        className={`absolute w-32 rounded-2xl border border-white/10 bg-white/[0.06] p-3 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.4)] ${className}`}
+        className={`absolute w-32 rounded-2xl border border-white/10 bg-white/6 p-3 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.4)] ${className}`}
         animate={{ y: [0, 14, 0], rotate: [3, -3, 3] }}
         transition={{ duration: 11, delay, repeat: Infinity, ease: "easeInOut" }}
     >
-        <div className="h-2 w-3/4 rounded-full bg-gradient-to-r from-emerald-400/70 to-transparent" />
+        <div className="h-2 w-3/4 rounded-full bg-linear-to-r from-emerald-400/70 to-transparent" />
         <div className="mt-2 h-1.5 w-full rounded-full bg-white/10" />
         <div className="mt-1.5 h-1.5 w-2/3 rounded-full bg-white/10" />
     </motion.div>
@@ -218,7 +218,7 @@ const Logo3D = () => (
             transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
-            className="relative flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-white/15 to-white/[0.02] backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]"
+            className="relative flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-linear-to-br from-white/15 to-white/2drop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -298,8 +298,8 @@ const GoogleButton = ({ onClick, loading }) => {
                 overflow-hidden rounded-2xl border font-semibold
                 transition-colors duration-300
                 ${loading
-                    ? "cursor-not-allowed border-white/10 bg-white/[0.04] text-gray-400"
-                    : "cursor-pointer border-white/15 bg-white/[0.08] text-white backdrop-blur-xl hover:bg-white/[0.14]"
+                    ? "cursor-not-allowed border-white/10 bg-white/4 text-gray-400"
+                    : "cursor-pointer border-white/15 bg-white/8 text-white backdrop-blur-xl hover:bg-white/[0.14]"
                 }
             `}
         >
@@ -348,7 +348,7 @@ const GoogleButton = ({ onClick, loading }) => {
                                     />
                                 ))}
                             </span>
-                            <span className="bg-gradient-to-r from-gray-300 via-white to-gray-300 bg-[length:200%_100%] bg-clip-text text-transparent animate-[shimmer_1.8s_linear_infinite]">
+                            <span className="bg-linear-to-r from-gray-300 via-white to-gray-300 bg-size-[200%_100%] bg-clip-text text-transparent animate-[shimmer_1.8s_linear_infinite]">
                                 Connecting...
                             </span>
                         </motion.span>
@@ -419,7 +419,7 @@ const FeatureBadges = () => (
                 key={label}
                 variants={fadeUp}
                 whileHover={{ y: -3, scale: 1.04 }}
-                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.06] px-3.5 py-1.5 text-xs font-medium text-gray-300 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.25)] transition-colors hover:border-emerald-300/30 hover:text-white"
+                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/6 px-3.5 py-1.5 text-xs font-medium text-gray-300 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.25)] transition-colors hover:border-emerald-300/30 hover:text-white"
             >
                 <Icon className="h-3.5 w-3.5 text-emerald-300" strokeWidth={2} />
                 {label}
@@ -441,7 +441,7 @@ const TrustedRow = () => (
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     transition={{ delay: 0.6 + i * 0.1, duration: 0.4, ease: "easeOut" }}
                     whileHover={{ y: -4, zIndex: 10 }}
-                    className={`-ml-2.5 first:ml-0 h-8 w-8 rounded-full border-2 border-[#0b0e17] bg-gradient-to-br ${g} shadow-lg`}
+                    className={`-ml-2.5 first:ml-0 h-8 w-8 rounded-full border-2 border-[#0b0e17] bg-linear-to-br ${g} shadow-lg`}
                 />
             ))}
             <motion.div
@@ -539,7 +539,7 @@ const Login = () => {
                     variants={containerStagger}
                     initial="hidden"
                     animate="show"
-                    className="relative rounded-[36px] border border-white/10 bg-white/[0.05] p-8 backdrop-blur-2xl shadow-[0_20px_70px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(255,255,255,0.08)] sm:p-10"
+                    className="relative rounded-[36px] border border-white/10 bg-white/5 p-8 backdrop-blur-2xl shadow-[0_20px_70px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(255,255,255,0.08)] sm:p-10"
                 >
                     {/* animated border glow */}
                     <motion.div
@@ -557,7 +557,7 @@ const Login = () => {
                     />
 
                     {/* top reflection */}
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-24 rounded-t-[36px] bg-gradient-to-b from-white/[0.08] to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-24 rounded-t-[36px] bg-linear-to-b from-white/8 to-transparent" />
 
                     <motion.div variants={fadeUp} className="flex justify-center">
                         <Logo3D />
@@ -567,7 +567,7 @@ const Login = () => {
                         variants={fadeUp}
                         className="mt-7 text-center text-4xl font-bold tracking-tight sm:text-5xl"
                     >
-                        <span className="bg-gradient-to-b from-white via-white to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.25)]">
+                        <span className="bg-linear-to-b from-white via-white to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(52,211,153,0.25)]">
                             Chat Freely
                         </span>
                     </motion.h1>

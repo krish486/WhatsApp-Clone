@@ -9,8 +9,26 @@ import {
 } from "lucide-react";
 import RecievedMessage from "./RecievedMessage";
 import SendMessage from "./SendMessage";
+// import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
 
-const UserChat = () => {
+const UserChat = ({ selectFriend }) => {
+    if (!selectFriend) {
+        return (
+            <div className="flex h-full w-full items-center justify-center bg-[#efeae2]">
+                <div className="text-center">
+                    <div className="text-7xl mb-5">💬</div>
+
+                    <h2 className="text-3xl font-bold text-slate-800">
+                        Welcome to Chat Freely
+                    </h2>
+
+                    <p className="mt-3 text-slate-500">
+                        Select a friend to start your conversation.
+                    </p>
+                </div>
+            </div>
+        );
+    }
     return (
         <div className="flex flex-col h-screen w-full bg-[#efeae2] py-2">
 
@@ -19,14 +37,14 @@ const UserChat = () => {
 
                 <div className="flex items-center gap-3">
                     <img
-                        src="https://i.pravatar.cc/150?img=12"
+                        src={selectFriend.picture}
                         alt=""
                         className="w-11 h-11 rounded-full object-cover"
                     />
 
                     <div>
                         <h2 className="font-semibold text-gray-800">
-                            Harsh Patel
+                            {selectFriend.name}
                         </h2>
 
                         <p className="text-sm text-green-600">
