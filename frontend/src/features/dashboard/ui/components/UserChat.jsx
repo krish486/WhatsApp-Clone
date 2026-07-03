@@ -14,8 +14,7 @@ import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
 
 const UserChat = ({ chat }) => {
 
-    const { selectedFriend, messages, addMessage } = chat;
-
+    const { selectedFriend, messages, addMessage, currentUserId } = chat;
     if (!selectedFriend) {
         return (
             <div className="flex h-full w-full items-center justify-center bg-[#efeae2]">
@@ -72,12 +71,12 @@ const UserChat = ({ chat }) => {
                         "url('https://www.transparenttextures.com/patterns/white-wall-3.png')",
                 }}
             >
-                {messages.map((msg) => (
+                {messages.map((msg, prop) => (
 
-                    msg.senderId === currentUser.id ?
+                    msg.senderId === currentUserId ?
 
                         <SendMessage
-                            key={msg.id}
+                            key={prop}
                             message={msg.chat}
                             time={msg.time}
                         />
@@ -85,7 +84,7 @@ const UserChat = ({ chat }) => {
                         :
 
                         <RecievedMessage
-                            key={msg.id}
+                            key={prop}
                             message={msg.chat}
                             time={msg.time}
                         />

@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import { fetchMessageApi } from "../../api/chatsApi";
+import { useSelector } from "react-redux";
 
 export const chatPageHook = () => {
-
+    const { user } = useSelector((store) => store.auth)
+    const currentUserId = user.id
     const [selectedFriend, setSelectedFriend] = useState(null);
     // {
     //   friendId: [messages]
@@ -15,13 +17,9 @@ export const chatPageHook = () => {
     }, [selectedFriend, chatCache]);
 
     const fetchMeesage = async (friendId) => {
-        await fetchMessageApi(friendId);
+        const res = await fetchMessageApi(friendId);
+        return res
     }
-
-    const selectFriend = (friend) => {
-        setSelectedFriend(friend);
-        fetchMeesage(friend.id)
-    };
 
     const setFriendMessages = (friendId, chats) => {
         setChatCache((prev) => ({
@@ -29,6 +27,13 @@ export const chatPageHook = () => {
             [friendId]: chats
         }));
     };
+
+    const selectFriend = async (friend) => {
+        setSelectedFriend(friend);
+        const res = await fetchMeesage(friend.id);
+        currentUserId === res._id ? setFriendMessages(res?.friendId, res?.chats) : setFriendMessages(res?.userId, res?.chats)
+    };
+
 
     const addMessage = (friendId, message) => {
         setChatCache((prev) => ({
@@ -57,7 +62,8 @@ export const chatPageHook = () => {
         chatCache,
         setFriendMessages,
         addMessage,
-        clearChat
+        clearChat,
+        currentUserId
     };
 
 };

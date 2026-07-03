@@ -48,16 +48,21 @@ class ChatRepo {
 
         const conversation = await chatCollection.findOne({
             $or: [
-                {
-                    userId,
-                    friendId
-                },
-                {
-                    userId: friendId,
-                    friendId: userId
-                }
+                { userId, friendId },
+                { userId: friendId, friendId: userId }
             ]
         });
+
+        if (!conversation) return null;
+
+        conversation.chats = conversation.chats.map(msg => ({
+            ...msg,
+            time: new Date(msg.time).toLocaleTimeString("en-IN", {
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true,
+            })
+        }));
 
         return conversation;
     }
