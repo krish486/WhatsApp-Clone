@@ -13,6 +13,7 @@ class UserRepo {
     async findById(id) {
         const res = await authModel.findById(id)
         const data = {
+            id: res._id,
             name: res.name,
             email: res.email,
             picture: res.picture

@@ -54,6 +54,15 @@ class AuthService {
 
         await existUser.save();
     }
+    async meService(email) {
+        const existUser = await authModel.findOne({ email })
+        return {
+            name: existUser.name,
+            email: existUser.email,
+            picture: existUser.picture,
+            id: existUser._id
+        }
+    }
 }
 
 module.exports = AuthService

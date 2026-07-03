@@ -26,9 +26,11 @@ class AuthController {
     }
 
     async meController(req, res) {
+        const { email } = req.user
+        const existUser = await this.authService.meService(email)
         return res.status(200).json({
             success: true,
-            value: req.user
+            value: existUser
         })
     }
     async refreshTokenController(req, res) {

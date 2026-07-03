@@ -6,7 +6,7 @@ import { chatPageHook } from '../../hook/FriendChatHook/chatPageHook';
 const FriendList = ({ chat }) => {
 
     const acceptedRequest = useAcceptedRequest();
-    const friends = acceptedRequest.acceptedRequest;
+    const friends = acceptedRequest.acceptedRequest || [];
 
     const { selectFriend } = chat
 

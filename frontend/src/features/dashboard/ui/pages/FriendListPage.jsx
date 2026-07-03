@@ -5,10 +5,12 @@ import { friendRequestHook } from "../../hook/FriendRequestHooks/friendRequestHo
 import { usePendingRequest } from "../../hook/FriendRequestHooks/pendingRequestHook";
 import { acceptRejectHook } from "../../hook/FriendRequestHooks/acceptRejectHook";
 import FriendList from "../components/FriendList";
+import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
 
 const FriendListPage = () => {
     const { handleSearch, searchEmail, searchResult, isSearching, notFound, setEmail, searchNone } = friendSearchingHook()
 
+    const chat = chatPageHook();
 
     const { handlePendingRequest, reqStatus } = friendRequestHook()
 
@@ -322,7 +324,7 @@ const FriendListPage = () => {
                 </section>
 
                 {/* Friends */}
-                <FriendList />
+                <FriendList chat={chat} />
 
             </div>
 

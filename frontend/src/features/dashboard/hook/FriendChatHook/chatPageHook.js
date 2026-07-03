@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { fetchMessageApi } from "../../api/chatsApi";
 
 export const chatPageHook = () => {
 
@@ -13,8 +14,13 @@ export const chatPageHook = () => {
         return chatCache[selectedFriend.id] || [];
     }, [selectedFriend, chatCache]);
 
+    const fetchMeesage = async (friendId) => {
+        await fetchMessageApi(friendId);
+    }
+
     const selectFriend = (friend) => {
         setSelectedFriend(friend);
+        fetchMeesage(friend.id)
     };
 
     const setFriendMessages = (friendId, chats) => {
