@@ -14,13 +14,16 @@ class ChatRepo {
                     friendId: userId
                 }
             ]
-
         });
+
         if (!conversation) {
 
             conversation = await chatCollection.create({
+
                 userId,
+
                 friendId,
+
                 chats: [
                     {
                         senderId: userId,
@@ -28,20 +31,38 @@ class ChatRepo {
                         seen: false
                     }
                 ]
+
             });
 
         } else {
 
             conversation.chats.push({
+
                 senderId: userId,
+
                 chat,
+
                 seen: false
+
             });
 
             await conversation.save();
+
         }
 
-        return conversation;
+        const lastMessage =
+            conversation.chats[
+            conversation.chats.length - 1
+            ];
+
+        return {
+
+            receiverId: friendId,
+
+            message: lastMessage
+
+        };
+
     }
 
     async watchChat(userId, friendId) {

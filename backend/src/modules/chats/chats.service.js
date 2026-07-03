@@ -18,11 +18,16 @@ class ChatService {
 
         const encryptedChat = encryptMessage(chat);
 
-        return await this.chatRepo.storeChat(
+        const saved = await this.chatRepo.storeChat(
             userId,
             friend._id,
             encryptedChat
         );
+
+
+        saved.message.chat = decryptMessage(saved.message.chat);
+
+        return saved;
     }
 
     async watchingChatService(userId, friendId) {

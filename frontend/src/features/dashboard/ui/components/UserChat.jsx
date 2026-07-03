@@ -14,7 +14,7 @@ import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
 
 const UserChat = ({ chat }) => {
 
-    const { selectedFriend, messages, addMessage, currentUserId } = chat;
+    const { selectedFriend, messages, text, setText, sendMessage, addMessage, currentUserId } = chat;
     if (!selectedFriend) {
         return (
             <div className="flex h-full w-full items-center justify-center bg-[#efeae2]">
@@ -71,25 +71,21 @@ const UserChat = ({ chat }) => {
                         "url('https://www.transparenttextures.com/patterns/white-wall-3.png')",
                 }}
             >
-                {messages.map((msg, prop) => (
-
-                    msg.senderId === currentUserId ?
-
+                {messages.map((msg) =>
+                    msg.senderId === currentUserId ? (
                         <SendMessage
-                            key={prop}
+                            key={msg._id}
                             message={msg.chat}
                             time={msg.time}
                         />
-
-                        :
-
+                    ) : (
                         <RecievedMessage
-                            key={prop}
+                            key={msg._id}
                             message={msg.chat}
                             time={msg.time}
                         />
-
-                ))}
+                    )
+                )}
 
             </div>
 
@@ -107,12 +103,14 @@ const UserChat = ({ chat }) => {
                 />
 
                 <input
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
                     type="text"
                     placeholder="Type a message"
                     className="flex-1 bg-gray-100 rounded-full px-5 py-3 outline-none"
                 />
 
-                <button className="bg-green-600 hover:bg-green-700 text-white p-3 rounded-full transition">
+                <button onClick={sendMessage} className="bg-green-600 hover:bg-green-700 text-white p-3 rounded-full transition">
                     <SendHorizontal size={20} />
                 </button>
 

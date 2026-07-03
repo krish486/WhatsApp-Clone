@@ -8,8 +8,6 @@ module.exports = (io) => {
 
     io.on(events.CONNECTION, (socket) => {
 
-        console.log("Connected :", socket.id);
-
         socket.on(events.JOIN, (userId) => {
             onlineUsers.set(userId, socket.id);
             io.emit(events.USER_ONLINE, {
@@ -21,18 +19,17 @@ module.exports = (io) => {
             try {
 
                 const { senderId, receiverEmail, message } = data
+                console.log("senderId-", senderId)
+                console.log("receiverEmail-", receiverEmail)
+                console.log("message-", message)
 
                 const savedMessage = await chatService.storingChatsService(senderId, receiverEmail, message)
-                const receiverSocket = onlineUsers.get(savedMessage.friendId.toString());
+                const receiverSocket = onlineUsers.get(savedMessage.receiverId.toString());
 
                 if (receiverSocket) {
-
                     io.to(receiverSocket).emit(
-
                         events.RECEIVE_MESSAGE,
-
-                        savedMessage
-
+                        savedMessage.message
                     );
 
                 }

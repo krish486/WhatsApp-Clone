@@ -7,7 +7,10 @@ const RecievedMessage = ({ message, time }) => {
                 <p>{message}</p>
 
                 <div className="text-right text-xs text-gray-500 mt-1">
-                    {time}
+                    {new Date(time).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    })}
                 </div>
             </div>
         </div>
