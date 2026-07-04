@@ -1,8 +1,7 @@
 import { apiInstance } from "../../../config/axios-Instance/axiosInstance";
 
 export const googleWindowLocation = () => {
-    const url = "https://whatsapp-clone-ipnq.onrender.com/api/auth/google/callback";
-    return url
+    return "https://whatsapp-clone-ipnq.onrender.com/api/auth/google";
 }
 
 export const getMeApi = async () => {
