@@ -21,7 +21,7 @@ const createApp = () => {
         credentials: true
     }))
 
-    app.use("/api/", authRoutes)
+    app.use("/api", authRoutes)
     app.use("/api/user", userRoutes)
     app.use("/api/chats", chatRoutes)
 
