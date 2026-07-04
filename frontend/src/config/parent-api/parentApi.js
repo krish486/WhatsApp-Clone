@@ -1,3 +1,3 @@
 export const parentApi = () => {
-    return "https://whatsapp-clone-ipnq.onrender.com"
+    return "https://whatsapp-clone-ipnq.onrender.com/api"
 }
