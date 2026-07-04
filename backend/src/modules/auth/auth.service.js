@@ -33,20 +33,30 @@ class AuthService {
 
         return { accToken, refToken }
     }
-    async refreshTokenService(req, res) {
-        let refreshToken = req.cookies.refreshToken;
+    async refreshTokenService(req) {
+        const refreshToken = req.cookies.refreshToken;
+
         if (!refreshToken) {
-            return res.status(401).json({
-                message: "refresh token expired"
-            })
+            throw new Error("Refresh token expired");
         }
-        let payload = jwt.verify(refreshToken, process.env.REFRESH_SECRET)
+
+        const payload = jwt.verify(
+            refreshToken,
+            process.env.REFRESH_SECRET
+        );
+
         delete payload.exp;
         delete payload.iat;
 
-        let accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, { expiresIn: "1H" })
+        const accessToken = jwt.sign(
+            payload,
+            process.env.ACCESS_SECRET,
+            {
+                expiresIn: "1h"
+            }
+        );
 
-        return { accessToken }
+        return { accessToken };
     }
     async logOutService(id) {
         const existUser = await authModel.findById(id)
