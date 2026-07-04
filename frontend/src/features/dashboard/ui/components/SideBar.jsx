@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router";
 import { logOutHook } from "../../hook/log-out/logOutHook";
+import { useSelector } from "react-redux";
 
 const navItemClass = ({ isActive }) =>
     `px-4 py-3 rounded-lg transition-all duration-200 cursor-pointer
@@ -17,6 +18,8 @@ const mobileNavClass = ({ isActive }) =>
     }`;
 
 const SideBar = () => {
+
+    const { chatOpen } = useSelector((store) => store.chatOpen)
 
     const { handleLogout } = logOutHook()
 
@@ -71,7 +74,29 @@ const SideBar = () => {
             </aside>
 
             {/* Mobile Bottom Navbar */}
-            <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg">
+            <nav
+                className={`
+        md:hidden
+        fixed
+        bottom-0
+        left-0
+        right-0
+        bg-white
+        border-t
+        shadow-xl
+        z-50
+
+        transform
+        transition-all
+        duration-500
+        ease-in-out
+
+        ${chatOpen
+                        ? "translate-y-full opacity-0 pointer-events-none"
+                        : "translate-y-0 opacity-100"
+                    }
+    `}
+            >
                 <div className="grid grid-cols-4 h-16">
 
                     <NavLink
@@ -100,10 +125,8 @@ const SideBar = () => {
                     </NavLink>
 
                     <button
-                        className="
-                        flex flex-col items-center justify-center
-                        active:scale-95 transition-all duration-200
-                        "
+                        onClick={handleLogout}
+                        className="flex flex-col items-center justify-center active:scale-95 transition-all duration-200"
                     >
                         <span>🚪</span>
                         <span className="text-xs">Logout</span>

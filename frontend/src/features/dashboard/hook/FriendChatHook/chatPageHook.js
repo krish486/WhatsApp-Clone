@@ -1,16 +1,27 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { fetchMessageApi } from "../../api/chatsApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../../../socket/socket";
+import { setChatOpen } from "../../state/chatSlice";
 
 export const chatPageHook = () => {
+
+    const dispatch = useDispatch()
+
     const { user } = useSelector((store) => store.auth)
     const selectedFriendRef = useRef(null);
+
     const currentUserId = user.id
+
     const [selectedFriend, setSelectedFriend] = useState(null);
     // {
     //   friendId: [messages]
     // }
+
+    const hideNav = (val) => {
+        dispatch(setChatOpen(val))
+    }
+
     const [chatCache, setChatCache] = useState({});
     const [loading, setLoading] = useState(false);
     const [text, setText] = useState("");
@@ -40,6 +51,8 @@ export const chatPageHook = () => {
     const selectFriend = async (friend) => {
 
         setSelectedFriend(friend);
+        hideNav(true);
+
         selectedFriendRef.current = friend;
 
         setSelectedFriend(friend);
@@ -116,8 +129,10 @@ export const chatPageHook = () => {
     }, []);
 
     return {
+        hideNav,
         loading,
         setLoading,
+        setSelectedFriend,
         selectedFriend,
         selectFriend,
         messages,

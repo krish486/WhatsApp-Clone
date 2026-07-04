@@ -10,6 +10,7 @@ import {
 import RecievedMessage from "./RecievedMessage";
 import SendMessage from "./SendMessage";
 import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
+import { ArrowLeft } from "lucide-react";
 // import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
 
 const UserChat = ({ chat }) => {
@@ -39,6 +40,15 @@ const UserChat = ({ chat }) => {
             <div className="h-16 bg-white border-b flex items-center justify-between px-5 shadow-sm">
 
                 <div className="flex items-center gap-3">
+                    <button
+                        onClick={() => {
+                            chat.hideNav(false)
+                            chat.setSelectedFriend(null)
+                        }}
+                        className="md:hidden"
+                    >
+                        <ArrowLeft />
+                    </button>
                     <img
                         src={selectedFriend.picture}
                         alt=""
