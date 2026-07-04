@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getMeApi } from "../features/auth/api/authApi";
-import { addUser, logout } from "../features/auth/state/AuthSlice";
+import { addUser, removeUser } from "../features/auth/state/AuthSlice";
 import SideBar from "../features/dashboard/ui/components/SideBar";
 import { socket } from "../socket/socket";
 
