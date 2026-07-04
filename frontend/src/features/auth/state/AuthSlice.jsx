@@ -5,7 +5,7 @@ let authSlice = createSlice({
     name: "auth",
     initialState: {
         user: null,
-        isLoading: false,
+        isLoading: true,
         isAuth: false
     },
     reducers: {
