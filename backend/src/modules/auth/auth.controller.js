@@ -10,16 +10,16 @@ class AuthController {
         const { accToken, refToken } = await this.authService.createUser(req.user)
         const accessCookieConfig = {
             httpOnly: false,
-            secure: false,
-            sameSite: "lax",
+            secure: true,
+            sameSite: "none",
             maxAge: 60 * 60 * 1000,
-        }
+        };
         const refreshCookieConfig = {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax",
+            secure: true,
+            sameSite: "none",
             maxAge: 24 * 60 * 60 * 1000,
-        }
+        };
         res.cookie("accessToken", accToken, accessCookieConfig);
         res.cookie("refreshToken", refToken, refreshCookieConfig);
         res.redirect(process.env.CALLBACK_URL)
