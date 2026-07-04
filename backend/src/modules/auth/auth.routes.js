@@ -7,37 +7,14 @@ const authRoutes = Router()
 
 let authController = new AuthController();
 
-authRoutes.get(
-    "/auth/google",
-    (req, res, next) => {
-        console.log("GOOGLE ROUTE HIT");
-        next();
-    },
-    passport.authenticate("google", {
-        scope: ["profile", "email"],
-        session: false
-    })
+authRoutes.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile', 'email'], session: false })
 );
-// authRoutes.get('/auth/google',
-//     passport.authenticate('google', { scope: ['profile', 'email'], session: false })
-// );
 
-authRoutes.get(
-    "/auth/google/callback",
-    (req, res, next) => {
-        console.log("CALLBACK HIT");
-        next();
-    },
-    passport.authenticate("google", {
-        failureRedirect: "/login",
-        session: false
-    }),
+authRoutes.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login', session: false }),
     authController.googleCallbackController.bind(authController)
 );
-// authRoutes.get('/auth/google/callback',
-//     passport.authenticate('google', { failureRedirect: '/login', session: false }),
-//     authController.googleCallbackController.bind(authController)
-// );
 
 authRoutes.get("/auth/me", authMiddleware, authController.meController.bind(authController))
 
