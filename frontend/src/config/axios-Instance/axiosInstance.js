@@ -23,7 +23,12 @@ apiInstance.interceptors.response.use(
 
             try {
 
-                await axios.get("https://whatsapp-clone-ipnq.onrender.com/api/auth/refreshToken", { withCredentials: true });
+                await axios.get(
+                    `${parentApi()}/auth/refreshToken`,
+                    {
+                        withCredentials: true,
+                    }
+                );
 
                 return apiInstance(originalReq);
 

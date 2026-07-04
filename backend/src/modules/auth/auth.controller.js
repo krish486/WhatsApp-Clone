@@ -65,15 +65,15 @@ class AuthController {
 
             const accessCookieConfig = {
                 httpOnly: false,
-                secure: false,
-                sameSite: "lax",
-            }
+                secure: true,
+                sameSite: "none",
+            };
+
             const refreshCookieConfig = {
                 httpOnly: true,
-                secure: false,
-                sameSite: "lax",
-            }
-
+                secure: true,
+                sameSite: "none",
+            };
             res.clearCookie("refreshToken", refreshCookieConfig)
             res.clearCookie("accessToken", accessCookieConfig)
 
