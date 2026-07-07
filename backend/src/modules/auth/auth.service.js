@@ -34,6 +34,9 @@ class AuthService {
         return { accToken, refToken }
     }
     async refreshTokenService(req) {
+        console.log("Cookies:", req.cookies);
+        console.log("Refresh Token:", req.cookies.refreshToken);
+
         const refreshToken = req.cookies.refreshToken;
 
         if (!refreshToken) {

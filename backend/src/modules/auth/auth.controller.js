@@ -22,6 +22,9 @@ class AuthController {
         };
         res.cookie("accessToken", accToken, accessCookieConfig);
         res.cookie("refreshToken", refToken, refreshCookieConfig);
+        console.log("Setting Cookies");
+        console.log("Access:", accToken.slice(0, 20));
+        console.log("Refresh:", refToken.slice(0, 20));
         res.redirect(process.env.CALLBACK_URL)
     }
 
