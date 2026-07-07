@@ -38,7 +38,7 @@ class AuthService {
         console.log("Refresh Token:", req.cookies.refreshToken);
 
         const refreshToken = req.cookies.refreshToken;
-
+        console.log("refreshToken->", refreshToken)
         if (!refreshToken) {
             throw new Error("Refresh token expired");
         }
@@ -47,7 +47,7 @@ class AuthService {
             refreshToken,
             process.env.REFRESH_SECRET
         );
-
+        console.log("payload->", payload)
         delete payload.exp;
         delete payload.iat;
 
@@ -58,7 +58,7 @@ class AuthService {
                 expiresIn: "1h"
             }
         );
-
+        console.log("accessToken", accessToken)
         return { accessToken };
     }
     async logOutService(id) {

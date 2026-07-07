@@ -47,13 +47,14 @@ class AuthController {
             const { accessToken } =
                 await this.authService.refreshTokenService(req);
 
+            console.log("this is log of refreshTokenController--")
             res.cookie("accessToken", accessToken, {
                 httpOnly: false,
                 secure: true,
                 sameSite: "none",
                 maxAge: 60 * 60 * 1000,
             });
-
+            console.log("this is last line before return in refreshTokenController")
             return res.status(200).json({
                 success: true
             });
