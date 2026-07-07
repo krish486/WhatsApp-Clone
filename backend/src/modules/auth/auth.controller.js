@@ -26,12 +26,18 @@ class AuthController {
     }
 
     async meController(req, res) {
-        const { email } = req.user
-        const existUser = await this.authService.meService(email)
-        return res.status(200).json({
-            success: true,
-            value: existUser
-        })
+        try {
+            const { email } = req.user
+            const existUser = await this.authService.meService(email)
+            return res.status(200).json({
+                success: true,
+                value: existUser
+            })
+        } catch (error) {
+            return res.status(500).json({
+                message: error.message
+            })
+        }
     }
     async refreshTokenController(req, res) {
         try {
