@@ -69,6 +69,7 @@ class AuthService {
     }
     async meService(email) {
         const existUser = await authModel.findOne({ email })
+        console.log("this is exist-user from me service", existUser)
         return {
             name: existUser.name,
             email: existUser.email,

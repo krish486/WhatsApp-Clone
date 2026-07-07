@@ -30,8 +30,10 @@ class AuthController {
 
     async meController(req, res) {
         try {
+            console.log("this is email-", email)
             const { email } = req.user
             const existUser = await this.authService.meService(email)
+            console.log("this is exist-user---->", existUser)
             return res.status(200).json({
                 success: true,
                 value: existUser
@@ -54,7 +56,7 @@ class AuthController {
                 sameSite: "none",
                 maxAge: 60 * 60 * 1000,
             });
-            console.log("this is last line before return in refreshTokenController")
+            console.log("this is last line before return statement")
             return res.status(200).json({
                 success: true
             });
