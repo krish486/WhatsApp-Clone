@@ -22,18 +22,13 @@ class AuthController {
         };
         res.cookie("accessToken", accToken, accessCookieConfig);
         res.cookie("refreshToken", refToken, refreshCookieConfig);
-        console.log("Setting Cookies");
-        console.log("Access:", accToken.slice(0, 20));
-        console.log("Refresh:", refToken.slice(0, 20));
         res.redirect(process.env.CALLBACK_URL)
     }
 
     async meController(req, res) {
         try {
-            console.log("this is email-", email)
             const { email } = req.user
             const existUser = await this.authService.meService(email)
-            console.log("this is exist-user---->", existUser)
             return res.status(200).json({
                 success: true,
                 value: existUser
@@ -49,14 +44,12 @@ class AuthController {
             const { accessToken } =
                 await this.authService.refreshTokenService(req);
 
-            console.log("this is log of refreshTokenController--")
             res.cookie("accessToken", accessToken, {
                 httpOnly: false,
                 secure: true,
                 sameSite: "none",
                 maxAge: 60 * 60 * 1000,
             });
-            console.log("this is last line before return statement")
             return res.status(200).json({
                 success: true
             });
