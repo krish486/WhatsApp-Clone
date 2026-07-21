@@ -1,8 +1,7 @@
 import { apiInstance } from "../../../config/axios-Instance/axiosInstance";
 
 export const googleWindowLocation = () => {
-    return "https://whatsapp-clone-ipnq.onrender.com/api/auth/google";
-    // return "http://localhost:3000/api/auth/google";
+    return `${import.meta.env.VITE_API_URL}/auth/google`;
 }
 
 export const getMeApi = async () => {

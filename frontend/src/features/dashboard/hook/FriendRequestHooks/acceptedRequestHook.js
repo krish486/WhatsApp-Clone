@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { acceptedRequestApi } from "../../api/dashboardApi"
 import { useEffect } from "react"
+import { useNavigate } from "react-router"
 
 export const useAcceptedRequest = () => {
     const [acceptedRequest, setAcceptedRequest] = useState([])
     const [loading, setLoading] = useState(false)
+    let navigate = useNavigate()
 
     const fetchAcceptedRequest = async () => {
         try {
@@ -26,5 +28,6 @@ export const useAcceptedRequest = () => {
         acceptedRequest,
         loading,
         refetch: fetchAcceptedRequest,
+        navigate
     }
 }

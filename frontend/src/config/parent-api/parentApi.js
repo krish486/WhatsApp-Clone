@@ -1,4 +1,3 @@
 export const parentApi = () => {
-    return "https://whatsapp-clone-ipnq.onrender.com/api"
-    // return "http://localhost:3000/api"
+    return import.meta.env.VITE_API_URL;
 }

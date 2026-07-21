@@ -127,6 +127,7 @@ const FriendList = ({ chat }) => {
 
                             <button
                                 onClick={() => {
+                                    acceptedRequest.navigate("/")
                                     selectFriend(friend)
                                 }}
                                 className="
