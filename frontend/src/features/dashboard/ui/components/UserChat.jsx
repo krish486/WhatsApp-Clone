@@ -11,11 +11,20 @@ import RecievedMessage from "./RecievedMessage";
 import SendMessage from "./SendMessage";
 import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
 import { ArrowLeft } from "lucide-react";
+import { useNavigate, useOutletContext } from "react-router";
 // import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
 
-const UserChat = ({ chat }) => {
-
-    const { selectedFriend, messages, text, setText, sendMessage, addMessage, currentUserId } = chat;
+const UserChat = () => {
+    const chat = useOutletContext();
+    const navigate = useNavigate()
+    const {
+        selectedFriend,
+        messages,
+        text,
+        setText,
+        sendMessage,
+        currentUserId
+    } = chat;
     if (!selectedFriend) {
         return (
             <div className="flex h-full w-full items-center justify-center bg-[#efeae2]">
@@ -42,8 +51,9 @@ const UserChat = ({ chat }) => {
                 <div className="flex items-center gap-3">
                     <button
                         onClick={() => {
-                            chat.hideNav(false)
-                            chat.setSelectedFriend(null)
+                            chat.hideNav(false);
+                            chat.setSelectedFriend(null);
+                            navigate("/");
                         }}
                         className="md:hidden"
                     >

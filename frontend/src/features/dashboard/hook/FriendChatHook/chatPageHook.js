@@ -3,8 +3,13 @@ import { fetchMessageApi } from "../../api/chatsApi";
 import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../../../socket/socket";
 import { setChatOpen } from "../../state/chatSlice";
+import { useParams } from "react-router";
+import { useAcceptedRequest } from "../FriendRequestHooks/acceptedRequestHook";
 
 export const chatPageHook = () => {
+    const acceptedRequest = useAcceptedRequest();
+    const friends = acceptedRequest.acceptedRequest || [];
+    const { friendId } = useParams();
 
     const dispatch = useDispatch()
 
@@ -50,13 +55,11 @@ export const chatPageHook = () => {
 
     const selectFriend = async (friend) => {
 
-        setSelectedFriend(friend);
         hideNav(true);
 
         selectedFriendRef.current = friend;
 
         setSelectedFriend(friend);
-
         if (chatCache[friend.id]) {
             return;
         }
@@ -71,6 +74,36 @@ export const chatPageHook = () => {
         setFriendMessages(cacheKey, res.chats);
 
     }
+    /**
+ * Sync selected friend with URL.
+ *
+ * Example:
+ * URL -> /chat/123
+ *
+ * friendId = "123"
+ *      ↓
+ * find friend from accepted friends
+ *      ↓
+ * call selectFriend(friend)
+ */
+    useEffect(() => {
+
+        if (!friendId) return;
+
+        if (!friends.length) return;
+
+        // Already selected
+        if (selectedFriend?.id === friendId) return;
+
+        const friend = friends.find(
+            (f) => String(f.id) === String(friendId)
+        );
+
+        if (!friend) return;
+
+        selectFriend(friend);
+
+    }, [friendId, friends]);
 
     const addMessage = (friendId, message) => {
         setChatCache((prev) => ({
@@ -91,8 +124,8 @@ export const chatPageHook = () => {
     };
 
     const sendMessage = () => {
+        if (!selectedFriend) return;
         try {
-            if (!selectedFriend) return;
             if (!text.trim()) return;
 
             const optimisticMessage = {
