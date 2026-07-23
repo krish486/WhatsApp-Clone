@@ -13,6 +13,10 @@ const chatSchema = new mongoose.Schema(
             ref: "User",
             required: true,
         },
+        unreadCount: {
+            type: Number,
+            default: 0,
+        },
         chats: [
             {
                 senderId: {
