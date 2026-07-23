@@ -46,6 +46,8 @@ class ChatRepo {
 
             });
 
+            conversation.unreadCount += 1;
+
             await conversation.save();
 
         }

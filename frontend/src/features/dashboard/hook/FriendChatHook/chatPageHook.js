@@ -73,7 +73,6 @@ export const chatPageHook = () => {
                 ? res.friendId
                 : res.userId;
 
-        setUnSeenCount(res.unSeenCount)
 
         setFriendMessages(cacheKey, res.chats);
 
