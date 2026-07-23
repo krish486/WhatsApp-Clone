@@ -11,6 +11,8 @@ export const chatPageHook = () => {
     const friends = acceptedRequest.acceptedRequest || [];
     const { friendId } = useParams();
 
+    const [unSeenCount, setUnSeenCount] = useState(0)
+
     const dispatch = useDispatch()
 
     const { user } = useSelector((store) => store.auth)
@@ -70,6 +72,8 @@ export const chatPageHook = () => {
             res.userId === currentUserId
                 ? res.friendId
                 : res.userId;
+
+        setUnSeenCount(res.unSeenCount)
 
         setFriendMessages(cacheKey, res.chats);
 
@@ -162,6 +166,7 @@ export const chatPageHook = () => {
     }, []);
 
     return {
+        unSeenCount,
         hideNav,
         loading,
         setLoading,
