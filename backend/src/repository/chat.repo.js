@@ -1,4 +1,5 @@
 const chatCollection = require("../models/user/chatCollection");
+const conversationMetadata = require("../models/user/conversationMetadata");
 
 class ChatRepo {
     async storeChat(userId, friendId, chat) {
@@ -15,6 +16,24 @@ class ChatRepo {
                 }
             ]
         });
+
+        const conversationMetaData = await conversationMetadata.findOneAndUpdate(
+            {
+                userId: friendId,
+                friendId: userId
+            },
+            {
+                $inc: {
+                    unreadCount: 1
+                }
+            },
+            {
+                upsert: true,
+                new: true,
+                setDefaultsOnInsert: true
+            }
+        );
+
 
         if (!conversation) {
 
@@ -46,7 +65,6 @@ class ChatRepo {
 
             });
 
-            conversation.unreadCount += 1;
 
             await conversation.save();
 
@@ -61,7 +79,9 @@ class ChatRepo {
 
             receiverId: friendId,
 
-            message: lastMessage
+            message: lastMessage,
+
+            unreadCount: conversationMetaData.unreadCount
 
         };
 
@@ -75,6 +95,23 @@ class ChatRepo {
                 { userId: friendId, friendId: userId }
             ]
         });
+        const conversationMetaData = await conversationMetadata.findOneAndUpdate(
+            {
+                userId,
+                friendId
+            },
+            {
+
+                $set: {
+                    unreadCount: 0
+                }
+            },
+            {
+                upsert: true,
+                new: true,
+                setDefaultsOnInsert: true
+            }
+        );
 
         if (!conversation) return null;
 
@@ -87,7 +124,10 @@ class ChatRepo {
             })
         }));
 
-        return conversation;
+        return {
+            ...conversation.toObject(),
+            unreadCount: conversationMetaData.unreadCount
+        };
     }
 }
 
