@@ -33,7 +33,7 @@ export const useAcceptedRequest = () => {
 
     const friends = useMemo(() => {
 
-        return acceptedRequest.map(friend => ({
+        return acceptedRequest?.map(friend => ({
             ...friend,
             unreadCount: unreadCount?.[friend.id] || 0
         }));
