@@ -8,6 +8,8 @@ module.exports = {
 
     RECEIVE_MESSAGE: "receive-message",
 
+    UNREAD_COUNT_UPDATED: "unread-count-update",
+
     TYPING: "typing",
 
     STOP_TYPING: "stop-typing",
@@ -16,6 +18,6 @@ module.exports = {
 
     USER_ONLINE: "user-online",
 
-    USER_OFFLINE: "user-offline"
+    USER_OFFLINE: "user-offline",
 
 }

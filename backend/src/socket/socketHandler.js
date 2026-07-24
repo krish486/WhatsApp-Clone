@@ -21,6 +21,7 @@ module.exports = (io) => {
                 const { senderId, receiverEmail, message } = data
 
                 const savedMessage = await chatService.storingChatsService(senderId, receiverEmail, message)
+
                 const receiverSocket = onlineUsers.get(savedMessage.receiverId.toString());
 
                 if (receiverSocket) {
@@ -28,6 +29,11 @@ module.exports = (io) => {
                         events.RECEIVE_MESSAGE,
                         savedMessage.message
                     );
+
+                    io.to(receiverSocket).emit(events.UNREAD_COUNT_UPDATED, {
+                        friendId: senderId,
+                        unreadCount: savedMessage.unreadCount
+                    })
 
                 }
 
