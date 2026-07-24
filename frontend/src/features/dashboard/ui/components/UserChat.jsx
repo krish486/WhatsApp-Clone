@@ -43,6 +43,15 @@ const UserChat = () => {
             </div>
         );
     }
+
+    //a small buisness logic to scroll down the UI page
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop =
+                chatContainerRef.current.scrollHeight;
+        }
+    }, [messages]);
+
     return (
         <div className="flex flex-col h-screen w-full bg-[#efeae2] py-2">
 
