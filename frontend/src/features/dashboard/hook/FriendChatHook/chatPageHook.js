@@ -159,8 +159,17 @@ export const chatPageHook = () => {
 
     useEffect(() => {
         socket.on("receive-message", receiveMessage);
+        socket.on("unread-count-update", ({ friendId, unreadCount }) => {
+            console.log("this is friendId-", friendId)
+            // dispatch(updateUnreadCount({
+            //     friendId,
+            //     unreadCount
+            // }));
+
+        });
         return () => {
             socket.off("receive-message", receiveMessage);
+            socket.off("UNREAD_COUNT_UPDATED");
         };
     }, []);
 

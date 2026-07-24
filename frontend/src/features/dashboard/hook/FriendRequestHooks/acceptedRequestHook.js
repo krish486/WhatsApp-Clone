@@ -12,6 +12,7 @@ export const useAcceptedRequest = () => {
         try {
             setLoading(true);
             const response = await acceptedRequestApi()
+            console.log("this is response--", response)
             setAcceptedRequest(response)
         }
         catch (error) {
