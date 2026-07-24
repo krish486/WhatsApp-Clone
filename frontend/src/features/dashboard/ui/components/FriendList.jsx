@@ -7,7 +7,6 @@ const FriendList = ({ chat }) => {
 
     const acceptedRequest = useAcceptedRequest();
     const friends = acceptedRequest.acceptedRequest || [];
-    console.log("this is friends-", friends)
 
     const { selectFriend } = chat
 

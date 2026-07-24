@@ -3,11 +3,13 @@ import { fetchMessageApi } from "../../api/chatsApi";
 import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../../../socket/socket";
 import { setChatOpen } from "../../state/chatSlice";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { useAcceptedRequest } from "../FriendRequestHooks/acceptedRequestHook";
 import { updateUnreadCount } from "../../state/metaDataSlice";
 
 export const chatPageHook = () => {
+
+    const { pathname } = useLocation()
     const acceptedRequest = useAcceptedRequest();
     const friends = acceptedRequest.acceptedRequest || [];
     const { friendId } = useParams();
@@ -25,6 +27,12 @@ export const chatPageHook = () => {
     // {
     //   friendId: [messages]
     // }
+    const updateUnreadCountFn = (friendId, unreadCount) => {
+        dispatch(updateUnreadCount({
+            friendId,
+            unreadCount
+        }));
+    }
 
     const hideNav = (val) => {
         dispatch(setChatOpen(val))
@@ -43,6 +51,7 @@ export const chatPageHook = () => {
         try {
             setLoading(true);
             const res = await fetchMessageApi(friendId);
+            updateUnreadCountFn(res.friendId, res.unreadCount)
             return res;
         } finally {
             setLoading(false);
@@ -161,18 +170,24 @@ export const chatPageHook = () => {
     useEffect(() => {
         socket.on("receive-message", receiveMessage);
         socket.on("unread-count-update", ({ friendId, unreadCount }) => {
-            console.log("this is friendId-", friendId)
-            dispatch(updateUnreadCount({
-                friendId,
-                unreadCount
-            }));
-
+            updateUnreadCountFn(friendId, unreadCount)
         });
         return () => {
             socket.off("receive-message", receiveMessage);
             socket.off("UNREAD_COUNT_UPDATED");
         };
     }, []);
+
+    useEffect(() => {
+
+        if (pathname.includes("chat")) {
+            updateUnreadCountFn(
+                pathname.split("/")[2],
+                0
+            );
+        }
+
+    }, [pathname]);
 
     return {
         unSeenCount,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
     Phone,
     Video,
@@ -15,6 +15,7 @@ import { useNavigate, useOutletContext } from "react-router";
 // import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
 
 const UserChat = () => {
+    const chatContainerRef = useRef(null)
     const chat = useOutletContext();
     const navigate = useNavigate()
     const {
@@ -85,6 +86,7 @@ const UserChat = () => {
 
             {/* Chat Area */}
             <div
+                ref={chatContainerRef}
                 className="flex-1 overflow-y-auto px-6 py-5 space-y-4"
                 style={{
                     backgroundImage:
