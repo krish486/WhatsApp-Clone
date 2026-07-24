@@ -7,6 +7,7 @@ const FriendList = ({ chat }) => {
 
     const acceptedRequest = useAcceptedRequest();
     const friends = acceptedRequest.acceptedRequest || [];
+    console.log("this is friends-", friends)
 
     const { selectFriend } = chat
 
@@ -88,34 +89,72 @@ const FriendList = ({ chat }) => {
 
                         <div
                             key={prop}
-                            className="
+                            className={`
         relative
         flex
         items-center
         justify-between
         p-4
         transition
-        after:absolute
-        after:bottom-0
-        after:left-4
-        after:right-4
-        after:h-px
-        after:bg-black
-    "
+        cursor-pointer
+        hover:bg-gray-50
+        ${friend.unreadCount > 0 ? "bg-green-50 /40" : ""}
+                            `}
+
                         >
                             <div className="flex items-center gap-3 min-w-0">
 
-                                <img
-                                    src={friend.picture}
-                                    alt={friend.name}
-                                    className="h-14 w-14 rounded-full object-cover"
-                                />
+                                <div className="relative">
 
-                                <div className="min-w-0">
+                                    <img
+                                        src={friend.picture}
+                                        alt={friend.name}
+                                        className="h-14 w-14 rounded-full object-cover"
+                                    />
 
-                                    <h3 className="font-medium truncate">
-                                        {friend.name}
-                                    </h3>
+                                    {friend.unreadCount > 0 && (
+                                        <span
+                                            className="
+                absolute
+                -top-1
+                -right-1
+                h-4
+                w-4
+                rounded-full
+                bg-green-500
+                border-2
+                border-white
+            "
+                                        />
+                                    )}
+
+                                </div>
+
+                                <div className="min-w-0 flex-1">
+
+                                    <div className="flex items-center gap-2">
+
+                                        <h3 className="font-medium truncate">
+                                            {friend.name}
+                                        </h3>
+
+                                        {friend.unreadCount > 0 && (
+                                            <span
+                                                className="
+                    px-2
+                    py-0.5
+                    rounded-full
+                    bg-green-100
+                    text-green-700
+                    text-[10px]
+                    font-semibold
+                "
+                                            >
+                                                New
+                                            </span>
+                                        )}
+
+                                    </div>
 
                                     <p className="text-sm text-gray-500 truncate">
                                         {friend.email}
@@ -125,26 +164,49 @@ const FriendList = ({ chat }) => {
 
                             </div>
 
-                            <button
-                                onClick={() => {
-                                    selectFriend(friend);
-                                    acceptedRequest.navigate(`/chat/${friend.id}`);
-                                }}
-                                className="
-                        ml-4
-                        shrink-0
-                        rounded-xl
-                        bg-green-500
-                        px-4
-                        py-2
-                        text-white
-                        hover:bg-green-600
-                        transition
-                        cursor-pointer
-                    "
-                            >
-                                Chat
-                            </button>
+                            <div className="flex items-center gap-3">
+
+                                {friend.unreadCount > 0 && (
+                                    <div
+                                        className="
+                h-7
+                min-w-7
+                px-2
+                rounded-full
+                bg-red-500
+                text-white
+                text-xs
+                font-bold
+                flex
+                items-center
+                justify-center
+                shadow
+            "
+                                    >
+                                        {friend.unreadCount}
+                                    </div>
+                                )}
+
+                                <button
+                                    onClick={() => {
+                                        selectFriend(friend);
+                                        acceptedRequest.navigate(`/chat/${friend.id}`);
+                                    }}
+                                    className="
+            rounded-xl
+            bg-green-500
+            px-4
+            py-2
+            text-white
+            hover:bg-green-600
+            transition
+            cursor-pointer
+        "
+                                >
+                                    Chat
+                                </button>
+
+                            </div>
 
                         </div>
 
@@ -154,7 +216,7 @@ const FriendList = ({ chat }) => {
 
             </div>
 
-        </section>
+        </section >
     )
 }
 

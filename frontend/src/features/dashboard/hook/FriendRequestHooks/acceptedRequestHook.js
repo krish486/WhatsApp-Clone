@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { acceptedRequestApi } from "../../api/dashboardApi"
 import { useEffect } from "react"
 import { useNavigate } from "react-router"
@@ -6,8 +6,9 @@ import { useSelector } from "react-redux"
 
 export const useAcceptedRequest = () => {
 
-    const unreadCount = useSelector((store) => store.metaData)
-
+    const unreadCount = useSelector(
+        state => state.metaData.unreadCount
+    );
     const [acceptedRequest, setAcceptedRequest] = useState([])
     const [loading, setLoading] = useState(false)
     let navigate = useNavigate()
@@ -34,10 +35,10 @@ export const useAcceptedRequest = () => {
 
         return acceptedRequest.map(friend => ({
             ...friend,
-            unreadCount: unreadCounts?.[friend.id] || 0
+            unreadCount: unreadCount?.[friend.id] || 0
         }));
 
-    }, [acceptedRequest, unreadCounts]);
+    }, [acceptedRequest, unreadCount]);
 
     return {
         acceptedRequest: friends,
