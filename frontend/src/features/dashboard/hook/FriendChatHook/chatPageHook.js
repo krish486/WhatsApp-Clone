@@ -187,7 +187,7 @@ export const chatPageHook = () => {
             );
         }
 
-    }, [pathname]);
+    }, [pathname, messages]);
 
     return {
         unSeenCount,
