@@ -5,6 +5,7 @@ import { socket } from "../../../../socket/socket";
 import { setChatOpen } from "../../state/chatSlice";
 import { useParams } from "react-router";
 import { useAcceptedRequest } from "../FriendRequestHooks/acceptedRequestHook";
+import { updateUnreadCount } from "../../state/metaDataSlice";
 
 export const chatPageHook = () => {
     const acceptedRequest = useAcceptedRequest();
@@ -161,10 +162,10 @@ export const chatPageHook = () => {
         socket.on("receive-message", receiveMessage);
         socket.on("unread-count-update", ({ friendId, unreadCount }) => {
             console.log("this is friendId-", friendId)
-            // dispatch(updateUnreadCount({
-            //     friendId,
-            //     unreadCount
-            // }));
+            dispatch(updateUnreadCount({
+                friendId,
+                unreadCount
+            }));
 
         });
         return () => {

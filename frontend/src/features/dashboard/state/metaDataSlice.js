@@ -5,12 +5,12 @@ let metaDataSlice = createSlice({
     name: "metaData",
     initialState: {
         unreadCount: 0,
-        friendID: null,
+        friendId: null,
     },
     reducers: {
         updateUnreadCount: (state, action) => {
             state.unreadCount = action.payload.unreadCount;
-            state.friendID = action.payload.friendID
+            state.friendId = action.payload.friendId
         }
     }
 })

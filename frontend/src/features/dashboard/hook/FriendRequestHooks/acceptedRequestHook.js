@@ -2,8 +2,12 @@ import { useState } from "react"
 import { acceptedRequestApi } from "../../api/dashboardApi"
 import { useEffect } from "react"
 import { useNavigate } from "react-router"
+import { useSelector } from "react-redux"
 
 export const useAcceptedRequest = () => {
+
+    const unreadCount = useSelector((store) => store.metaData)
+
     const [acceptedRequest, setAcceptedRequest] = useState([])
     const [loading, setLoading] = useState(false)
     let navigate = useNavigate()
@@ -11,8 +15,9 @@ export const useAcceptedRequest = () => {
     const fetchAcceptedRequest = async () => {
         try {
             setLoading(true);
+
             const response = await acceptedRequestApi()
-            console.log("this is response--", response)
+
             setAcceptedRequest(response)
         }
         catch (error) {
@@ -25,10 +30,20 @@ export const useAcceptedRequest = () => {
         fetchAcceptedRequest();
     }, [])
 
+    const friends = useMemo(() => {
+
+        return acceptedRequest.map(friend => ({
+            ...friend,
+            unreadCount: unreadCounts?.[friend.id] || 0
+        }));
+
+    }, [acceptedRequest, unreadCounts]);
+
     return {
-        acceptedRequest,
+        acceptedRequest: friends,
         loading,
         refetch: fetchAcceptedRequest,
         navigate
-    }
+    };
+
 }
