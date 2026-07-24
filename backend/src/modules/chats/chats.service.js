@@ -42,7 +42,7 @@ class ChatService {
         }
 
         conversation.chats = conversation.chats.map((msg) => ({
-            ...msg.toObject(),
+            ...msg,
             chat: decryptMessage(msg.chat)
         }));
 

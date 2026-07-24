@@ -115,7 +115,9 @@ class ChatRepo {
 
         if (!conversation) return null;
 
-        conversation.chats = conversation.chats.map(msg => ({
+        const conversationObject = conversation.toObject();
+
+        conversationObject.chats = conversationObject.chats.map(msg => ({
             ...msg,
             time: new Date(msg.time).toLocaleTimeString("en-IN", {
                 hour: "numeric",
@@ -125,7 +127,7 @@ class ChatRepo {
         }));
 
         return {
-            ...conversation.toObject(),
+            ...conversationObject,
             unreadCount: conversationMetaData.unreadCount
         };
     }

@@ -19,9 +19,6 @@ module.exports = (io) => {
             try {
 
                 const { senderId, receiverEmail, message } = data
-                console.log("senderId-", senderId)
-                console.log("receiverEmail-", receiverEmail)
-                console.log("message-", message)
 
                 const savedMessage = await chatService.storingChatsService(senderId, receiverEmail, message)
                 const receiverSocket = onlineUsers.get(savedMessage.receiverId.toString());
