@@ -12,6 +12,7 @@ import SendMessage from "./SendMessage";
 import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate, useOutletContext } from "react-router";
+import { videoCallHook } from "../../hook/videoCallHook/videoCallHook";
 // import { chatPageHook } from "../../hook/FriendChatHook/chatPageHook";
 
 const UserChat = () => {
@@ -26,6 +27,8 @@ const UserChat = () => {
         sendMessage,
         currentUserId
     } = chat;
+
+    const { handleButtonClick } = videoCallHook()
 
     //a small buisness logic to scroll down the UI page
     useEffect(() => {
@@ -88,7 +91,9 @@ const UserChat = () => {
                 </div>
 
                 <div className="flex items-center gap-5 text-gray-600">
-                    <Video className="cursor-pointer hover:text-black" size={22} />
+                    <Video
+                        onClick={handleButtonClick}
+                        className="cursor-pointer hover:text-black" size={22} />
                     <Phone className="cursor-pointer hover:text-black" size={22} />
                     <MoreVertical className="cursor-pointer hover:text-black" size={22} />
                 </div>

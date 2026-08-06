@@ -13,7 +13,7 @@ import {
 
 const VideoCallPage = () => {
     return (
-        <div className="fixed top-16 right-8 w-[850px] h-[520px] bg-zinc-900 rounded-2xl shadow-2xl overflow-hidden border border-zinc-700 flex flex-col">
+        <div className="fixed top-16 right-8 w-212.5 h-130 bg-zinc-900 rounded-2xl shadow-2xl overflow-hidden border border-zinc-700 flex flex-col">
 
             {/* Header */}
             <div className="h-14 bg-zinc-800 flex items-center justify-between px-5 cursor-move">

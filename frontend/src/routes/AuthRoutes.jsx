@@ -7,6 +7,7 @@ import ChatsPage from "../features/dashboard/ui/pages/ChatsPage";
 import FriendListPage from "../features/dashboard/ui/pages/FriendListPage";
 import ProfilePage from "../features/dashboard/ui/pages/ProfilePage";
 import UserChat from "../features/dashboard/ui/components/UserChat";
+import VideoCallPage from "../features/dashboard/ui/pages/VideoCallPage";
 
 const routes = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const routes = createBrowserRouter([
                         path: "chat/:friendId",
                         element: <UserChat />,
                     },
+                    {
+                        path: "chat/:friendId/call/:roomId",
+                        element: <VideoCallPage />,
+                    }
                 ],
             },
             {
