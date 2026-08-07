@@ -92,7 +92,9 @@ const UserChat = () => {
 
                 <div className="flex items-center gap-5 text-gray-600">
                     <Video
-                        onClick={handleButtonClick}
+                        onClick={() => {
+                            handleButtonClick(selectedFriend)
+                        }}
                         className="cursor-pointer hover:text-black" size={22} />
                     <Phone className="cursor-pointer hover:text-black" size={22} />
                     <MoreVertical className="cursor-pointer hover:text-black" size={22} />

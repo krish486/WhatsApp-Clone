@@ -1,4 +1,5 @@
 const ChatService = require("../modules/chats/chats.service");
+const { emailToSocketMapping, socketToEmailMapping } = require("./emailToSocketMapping");
 const onlineUsers = require("./onlineUsers");
 const events = require("./socketEvents");
 
@@ -41,6 +42,15 @@ module.exports = (io) => {
             } catch (error) {
                 console.log("error in event-sendMessage-", error.message)
             }
+        })
+
+        socket.on(events.CREATE_VC, (data) => {
+            const { recieverEmail, senderEmail, roomId } = data;
+            emailToSocketMapping.set(senderEmail, socket.id)
+            socketToEmailMapping.set(socket.id, senderEmail)
+            socket.join(roomId);
+            socket.emit(events.CREATED_VC, { roomId });
+            // socket.broadcast.to(roomId).emit(events.USER_JOINED_VC,{})
         })
 
         socket.on("disconnect", () => {

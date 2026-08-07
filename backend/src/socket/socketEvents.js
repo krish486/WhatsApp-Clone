@@ -20,4 +20,9 @@ module.exports = {
 
     USER_OFFLINE: "user-offline",
 
+    CREATE_VC: "create-vc",
+
+    CREATED_VC: "created-vc",
+
+    USER_JOINED_VC: "user-joined-vc"
 }
