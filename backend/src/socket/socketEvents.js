@@ -24,5 +24,7 @@ module.exports = {
 
     CREATED_VC: "created-vc",
 
-    USER_JOINED_VC: "user-joined-vc"
+    USER_JOINED_VC: "user-joined-vc",
+
+    INCOMING_VC: "incoming-vc"
 }

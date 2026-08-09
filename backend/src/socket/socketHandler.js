@@ -9,8 +9,18 @@ module.exports = (io) => {
 
     io.on(events.CONNECTION, (socket) => {
 
-        socket.on(events.JOIN, (userId) => {
+        socket.on(events.JOIN, ({ userId, userEmail }) => {
+            console.log("========== JOIN ==========");
+            console.log("JOIN userId:", userId);
+            console.log("JOIN socket:", socket.id);
+
             onlineUsers.set(userId, socket.id);
+            emailToSocketMapping.set(userEmail, socket.id);
+            socketToEmailMapping.set(socket.id, userEmail);
+
+            console.log("emailToSocketMapping:", emailToSocketMapping);
+            console.log("==========================");
+
             io.emit(events.USER_ONLINE, {
                 userId
             });
@@ -46,11 +56,32 @@ module.exports = (io) => {
 
         socket.on(events.CREATE_VC, (data) => {
             const { recieverEmail, senderEmail, roomId } = data;
-            emailToSocketMapping.set(senderEmail, socket.id)
-            socketToEmailMapping.set(socket.id, senderEmail)
+
+            const receiverSocket = emailToSocketMapping.get(recieverEmail);
+            const senderSocket = emailToSocketMapping.get(senderEmail)
+
+            console.log("senderSocket:", senderSocket)
+            console.log("Caller:", senderEmail);
+            console.log("Receiver:", recieverEmail);
+            console.log("Receiver socket:", receiverSocket);
+            console.log("Room:", roomId);
+
+            if (!receiverSocket) {
+                console.log("Receiver is offline");
+                return;
+            }
+
+            // Caller joins room
             socket.join(roomId);
+
+            // Tell caller that room has been created
             socket.emit(events.CREATED_VC, { roomId });
-            // socket.broadcast.to(roomId).emit(events.USER_JOINED_VC,{})
+
+            // Tell receiver about incoming call
+            io.to(receiverSocket).emit(events.INCOMING_VC, {
+                from: senderEmail,
+                roomId
+            });
         })
 
         socket.on("disconnect", () => {
@@ -71,6 +102,8 @@ module.exports = (io) => {
 
             }
             if (disconnectedUser) {
+                emailToSocketMapping.delete(disconnectedUser);
+                socketToEmailMapping.delete(socket.id);
 
                 io.emit(events.USER_OFFLINE, {
                     userId: disconnectedUser

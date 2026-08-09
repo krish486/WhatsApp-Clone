@@ -22,8 +22,7 @@ const AuthProvider = ({ children }) => {
                 if (!socket.connected) {
                     socket.connect();
                 }
-
-                socket.emit("join", user.id);
+                socket.emit("join", { userId: user.id, userEmail: user.email });
 
             } catch (error) {
 
