@@ -1,7 +1,8 @@
 import React from "react";
 import { videoCallHook } from "../../hook/videoCallHook/videoCallHook";
-import VideoCallAnswerInterface from "../components/VideoCallAnswerInterface";
-import VideoCallingInterface from "../components/VideoCallingInterface";
+import VideoCallingInterface from "../components/videoCall/VideoCallingInterface";
+import VideoCallAnswerInterface from "../components/videoCall/VideoCallAnswerInterface";
+
 
 
 const VideoCallPage = () => {
