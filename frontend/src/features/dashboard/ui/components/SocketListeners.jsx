@@ -6,9 +6,17 @@ const SocketListeners = () => {
 
     const [roomId, setRoomId] = useState()
 
+    const [caller, setCaller] = useState({});
+
     const handleIncomingCall = (data) => {
         console.log("Incoming call:", data);
         setRoomId(data.roomId)
+        setCaller(
+            {
+                name: data.name,
+                picture: data.picture,
+            }
+        )
     };
 
     useEffect(() => {
@@ -21,7 +29,7 @@ const SocketListeners = () => {
 
     }, [handleIncomingCall]);
     if (roomId) {
-        return <IncommingCall />
+        return <IncommingCall caller={caller} />
     }
     return null;
 };

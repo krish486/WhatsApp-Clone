@@ -55,7 +55,7 @@ module.exports = (io) => {
         })
 
         socket.on(events.CREATE_VC, (data) => {
-            const { recieverEmail, senderEmail, roomId } = data;
+            const { recieverEmail, senderEmail, roomId, picture, name } = data;
 
             const receiverSocket = emailToSocketMapping.get(recieverEmail);
             const senderSocket = emailToSocketMapping.get(senderEmail)
@@ -80,7 +80,9 @@ module.exports = (io) => {
             // Tell receiver about incoming call
             io.to(receiverSocket).emit(events.INCOMING_VC, {
                 from: senderEmail,
-                roomId
+                roomId,
+                picture,
+                name
             });
         })
 
