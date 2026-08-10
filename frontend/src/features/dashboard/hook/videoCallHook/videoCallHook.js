@@ -30,7 +30,9 @@ export const videoCallHook = () => {
         socket.emit("create-vc", {
             recieverEmail: selectedFriend.email,
             senderEmail: user.email,
-            roomId
+            roomId,
+            picture: user.picture,
+            name: user.name
         })
     }
 
