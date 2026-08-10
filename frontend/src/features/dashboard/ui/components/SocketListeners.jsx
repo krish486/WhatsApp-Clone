@@ -1,14 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { socket } from "../../../../socket/socket";
+import IncommingCall from "./videoCall/IncommingCall";
 
 const SocketListeners = () => {
 
+    const [roomId, setRoomId] = useState()
+
+    const handleIncomingCall = (data) => {
+        console.log("Incoming call:", data);
+        setRoomId(data.roomId)
+    };
+
     useEffect(() => {
-
-        const handleIncomingCall = (data) => {
-            console.log("Incoming call:", data);
-
-        };
 
         socket.on("incoming-vc", handleIncomingCall);
 
@@ -16,8 +19,10 @@ const SocketListeners = () => {
             socket.off("incoming-vc", handleIncomingCall);
         };
 
-    }, []);
-
+    }, [handleIncomingCall]);
+    if (roomId) {
+        return <IncommingCall />
+    }
     return null;
 };
 

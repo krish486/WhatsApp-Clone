@@ -28,9 +28,58 @@ const SideBar = () => {
             {/* Desktop Sidebar */}
             <aside className="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-white border-r shadow-sm flex-col justify-between">
                 <div className="p-6">
-                    <h1 className="text-2xl font-bold mb-8">
-                        WhatsApp Clone
-                    </h1>
+                    <div className="
+    flex
+    items-center
+    gap-2
+    mb-8
+    w-fit
+    cursor-pointer
+    group
+">
+                        {/* Logo */}
+                        <div className="
+        w-9
+        h-9
+        rounded-xl
+        bg-green-600
+        text-white
+        flex
+        items-center
+        justify-center
+        font-bold
+        text-lg
+        shadow-sm
+
+        transition-all
+        duration-300
+        ease-out
+
+        group-hover:scale-110
+        group-hover:rotate-6
+        group-hover:shadow-lg
+        group-hover:bg-emerald-500
+    ">
+                            G
+                        </div>
+
+                        {/* Brand */}
+                        <h1 className="
+        text-2xl
+        font-extrabold
+        tracking-tight
+        text-gray-900
+
+        transition-all
+        duration-300
+        ease-out
+
+        group-hover:text-green-600
+        group-hover:translate-x-1
+    ">
+                            Gossips
+                        </h1>
+                    </div>
 
                     <nav className="flex flex-col gap-4">
 
